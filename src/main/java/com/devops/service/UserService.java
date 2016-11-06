@@ -9,4 +9,7 @@ import com.devops.dto.UserDTO;
 public interface UserService {
 
 	public UserDTO login(String username,String password);
+	
+	public UserDTO getUser(String uid);
+	
 }
