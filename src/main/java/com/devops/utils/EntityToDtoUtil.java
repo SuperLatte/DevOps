@@ -4,9 +4,12 @@ import org.springframework.util.StringUtils;
 
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
-import com.devops.dto.UserDTO;
 import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
+import com.devops.entity.User;
+import com.devops.dto.TeamDTO;
+import com.devops.dto.UserDTO;
+import com.devops.entity.Team;
 import com.devops.entity.User;
 /**
  * 
@@ -28,6 +31,7 @@ public class EntityToDtoUtil {
 		return userDTO;
 	}
 	
+
 	public static RiskDTO RiskToRiskDTO(Risk risk){
 		if(risk==null)
 			return null;
@@ -49,7 +53,18 @@ public class EntityToDtoUtil {
 		dto.setTraceUserId(riskRecord.getRrid());
 		//TODO
 		return dto;
+	}	
 		
-		
+
+	public static TeamDTO TeamToTeamDTO(Team team){
+		if(team==null) return null;
+		TeamDTO teamDTO=new TeamDTO();
+		if(!StringUtils.isEmpty(team.getManager_id()))
+			teamDTO.setManager_id(team.getManager_id());
+		if(!StringUtils.isEmpty(team.getName()))
+			teamDTO.setName(team.getName());
+		if(!StringUtils.isEmpty(team.getTid()))
+			teamDTO.setTid(team.getTid());
+		return teamDTO;
 	}
 }

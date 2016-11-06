@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devops.dao.UserDao;
 import com.devops.dao.impl.UserDaoImpl;
 import com.devops.dto.UserDTO;
 import com.devops.entity.User;
@@ -29,6 +28,18 @@ public class UserServiceImpl implements UserService{
 			u=userDao.getUser(username, password);
 		} catch (SQLException e) {
 			u=null;
+			e.printStackTrace();
+		}
+		if(u==null) return null;
+		return EntityToDtoUtil.UserToUserDTO(u);
+	}
+
+	@Override
+	public UserDTO getUser(String uid) {
+		User u=new User();
+		try {
+			u=userDao.getUser(uid);
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		if(u==null) return null;

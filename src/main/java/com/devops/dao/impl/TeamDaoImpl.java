@@ -12,9 +12,12 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Repository;
+
 /**
  * Created by super on 2016/11/6.
  */
+@Repository
 public class TeamDaoImpl implements TeamDao{
 
     private Connection connection;
