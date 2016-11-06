@@ -16,6 +16,9 @@ public class Risk {
     private int createTime;
     private int updateTime;
 
+    // 1 means opened, 0 means closed
+    private int status = 1;
+
     public String getRid() {
         return rid;
     }
@@ -54,5 +57,13 @@ public class Risk {
 
     public void setUpdateTime(int updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }
