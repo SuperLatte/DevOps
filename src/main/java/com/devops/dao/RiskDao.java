@@ -4,6 +4,7 @@ import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
 import com.devops.entity.RiskTracing;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -11,18 +12,18 @@ import java.util.List;
  */
 public interface RiskDao {
 
-    public Risk getRiskByRiskID(String rid);
+    public Risk getRiskByRiskID(String rid) throws SQLException;
 
-    public Risk getRiskByTeamID(String tid);
+    public List<Risk> getRiskByTeamID(String tid) throws SQLException;
 
-    public List<RiskRecord> getRecords(String rid);
+    public List<RiskRecord> getRecords(String rid) throws SQLException;
 
-    public RiskRecord getRecord(String rrid);
+    public RiskRecord getRecord(String rrid) throws SQLException;
 
-    public void addRecord(RiskRecord riskRecord);
+    public void addRecord(RiskRecord riskRecord) throws SQLException;
 
     //remember to add tracing list & record
-    public void addRisk(Risk risk);
+    public int addRisk(Risk risk) throws SQLException;
 
-    public void addTracing(RiskTracing riskTracing);
+    public void addTracing(RiskTracing riskTracing) throws SQLException;
 }
