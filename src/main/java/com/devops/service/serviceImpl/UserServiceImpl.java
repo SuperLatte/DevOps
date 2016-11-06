@@ -27,7 +27,6 @@ public class UserServiceImpl implements UserService{
 		User u=new User();
 		try {
 			u=userDao.getUser(username, password);
-			userDao.getAllUser();
 		} catch (SQLException e) {
 			u=null;
 			e.printStackTrace();
