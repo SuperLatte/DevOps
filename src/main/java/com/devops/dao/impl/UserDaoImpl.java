@@ -1,17 +1,21 @@
 package com.devops.dao.impl;
 
-import com.devops.dao.UserDao;
-import com.devops.entity.User;
-import com.devops.utils.JDBCUtil;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.devops.dao.UserDao;
+import com.devops.entity.User;
+import com.devops.utils.JDBCUtil;
 
 /**
  * Created by super on 2016/11/6.
  */
+@Repository
 public class UserDaoImpl implements UserDao{
 
     private Connection connection;
@@ -48,6 +52,45 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
+    
+    public List<User> getAllUser(){
+    	 try {
+			statement = connection.createStatement();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         String sql = "select * from user";
+         try {
+			resultSet = statement.executeQuery(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         try {
+			while (resultSet.next()) {
+			     User user = null;
+				try {
+					user = tranUser(resultSet);
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			    System.out.println(user.getUsername()+" "+user.getPassword());
+			 }
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         try {
+			statement.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+         return null;
+    }
+    
 
     private User tranUser(ResultSet resultSet) throws SQLException {
         User user = new User();
