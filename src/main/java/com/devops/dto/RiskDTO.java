@@ -9,6 +9,7 @@ public class RiskDTO {
     private String name;
     private int createTime;
     private int updateTime;
+    
     private List<String> traceUserList;
     
 	public String getRid() {
@@ -40,6 +41,17 @@ public class RiskDTO {
 	}
 	public void setUpdateTime(int updateTime) {
 		this.updateTime = updateTime;
+	}
+	public List<String> getTraceUserList() {
+		return traceUserList;
+	}
+	public void setTraceUserList(List<String> traceUserList) {
+		this.traceUserList = traceUserList;
+	}
+	@Override
+	public String toString() {
+		return "RiskDTO : {rid:" + rid + ", tid:" + tid + ", name:" + name + ", createTime:" + createTime
+				+ ", updateTime:" + updateTime + ", traceUserList:" + traceUserList + "}";
 	}
     
     

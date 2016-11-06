@@ -8,6 +8,7 @@ import java.util.List;
  * Created by super on 2016/11/6.
  */
 public class Risk {
+	
     private String rid;
     private String tid;
 

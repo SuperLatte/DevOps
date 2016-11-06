@@ -1,19 +1,18 @@
 package com.devops.dto;
 
-import java.sql.Timestamp;
-
 public class RiskRecordDTO {
 	
 	  	private String rrid;
 	    private String rid;
-	    private Timestamp createTime;
+	    private int createTime;
 
 	    private String content;
 	    private int possibility;
 	    private int affection;
 	    private String trigger;
-	    private String userId;
-	    private String username;
+	    private String traceUserId;
+	    private String traceUserName;
+	    
 		public String getRrid() {
 			return rrid;
 		}
@@ -26,10 +25,10 @@ public class RiskRecordDTO {
 		public void setRid(String rid) {
 			this.rid = rid;
 		}
-		public Timestamp getCreateTime() {
+		public int getCreateTime() {
 			return createTime;
 		}
-		public void setCreateTime(Timestamp createTime) {
+		public void setCreateTime(int createTime) {
 			this.createTime = createTime;
 		}
 		public String getContent() {
@@ -56,17 +55,17 @@ public class RiskRecordDTO {
 		public void setTrigger(String trigger) {
 			this.trigger = trigger;
 		}
-		public String getUserId() {
-			return userId;
+		public String getTraceUserId() {
+			return traceUserId;
 		}
-		public void setUserId(String userId) {
-			this.userId = userId;
+		public void setTraceUserId(String traceUserId) {
+			this.traceUserId = traceUserId;
 		}
-		public String getUsername() {
-			return username;
+		public String getTraceUserName() {
+			return traceUserName;
 		}
-		public void setUsername(String username) {
-			this.username = username;
+		public void setTraceUserName(String traceUserName) {
+			this.traceUserName = traceUserName;
 		}
 	    
 	    
