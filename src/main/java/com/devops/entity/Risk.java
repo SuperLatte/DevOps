@@ -1,5 +1,9 @@
 package com.devops.entity;
 
+import com.devops.controller.UserController;
+
+import java.util.List;
+
 /**
  * Created by super on 2016/11/6.
  */

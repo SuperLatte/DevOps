@@ -10,6 +10,8 @@ public class User {
     // login name
     private String username;
     private String password;
+
+    // 0 means worker, 1 means manager
     private int level;
 
     public String getUid() {
