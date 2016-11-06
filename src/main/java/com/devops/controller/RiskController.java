@@ -1,4 +1,4 @@
-package controller;
+package com.devops.controller;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.RequestMapping;

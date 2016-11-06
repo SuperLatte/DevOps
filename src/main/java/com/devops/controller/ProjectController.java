@@ -1,11 +1,11 @@
-package controller;
+package com.devops.controller;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import dto.ProjectDTO;
+import com.devops.dto.ProjectDTO;
 
 @RestController
 @RequestMapping("/project")
