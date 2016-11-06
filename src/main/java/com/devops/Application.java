@@ -1,5 +1,8 @@
 package com.devops;
 
+/**
+ * Created by puddingtea07 on 11/6/16.
+ */
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,13 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.devops.utils.JDBCUtil;
 
-/**
- * Created by super on 2016/11/5.
- */
+
 @SpringBootApplication
 @EnableAutoConfiguration
 public class Application extends SpringBootServletInitializer{
-
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(Application.class);
@@ -26,5 +26,4 @@ public class Application extends SpringBootServletInitializer{
         System.out.println("Springboot has been started!");
         JDBCUtil.getConnection();
     }
-
 }

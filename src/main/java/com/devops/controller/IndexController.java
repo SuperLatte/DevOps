@@ -20,4 +20,9 @@ public class IndexController {
         return "login";
     }
 
+    @RequestMapping("/myProjects")
+    public String projects() {
+        return "myRiskEntries";
+    }
+
 }
