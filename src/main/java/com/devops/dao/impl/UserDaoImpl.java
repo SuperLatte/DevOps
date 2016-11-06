@@ -52,45 +52,6 @@ public class UserDaoImpl implements UserDao{
         }
         return null;
     }
-    
-    public List<User> getAllUser(){
-    	 try {
-			statement = connection.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         String sql = "select * from user";
-         try {
-			resultSet = statement.executeQuery(sql);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         try {
-			while (resultSet.next()) {
-			     User user = null;
-				try {
-					user = tranUser(resultSet);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			    System.out.println(user.getUsername()+" "+user.getPassword());
-			 }
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         try {
-			statement.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-         return null;
-    }
-    
 
     private User tranUser(ResultSet resultSet) throws SQLException {
         User user = new User();
