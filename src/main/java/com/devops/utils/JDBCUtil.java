@@ -35,12 +35,8 @@ public class JDBCUtil {
             System.out.println("localhost:" + assinged_port + " -> " + rhost + ":" + rport);
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", "root", "325632");
-        } catch (JSchException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("Failed to connect to MySQL!");
         } finally {
             System.out.println("MySQL has been connected!");
         }
