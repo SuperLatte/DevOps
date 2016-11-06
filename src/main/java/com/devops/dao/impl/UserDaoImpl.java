@@ -1,17 +1,21 @@
 package com.devops.dao.impl;
 
-import com.devops.dao.UserDao;
-import com.devops.entity.User;
-import com.devops.utils.JDBCUtil;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.devops.dao.UserDao;
+import com.devops.entity.User;
+import com.devops.utils.JDBCUtil;
 
 /**
  * Created by super on 2016/11/6.
  */
+@Repository
 public class UserDaoImpl implements UserDao{
 
     private Connection connection;

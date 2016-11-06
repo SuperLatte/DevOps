@@ -1,5 +1,9 @@
 package com.devops.dto;
-
+/**
+ * 
+ * @author lujxu
+ *
+ */
 public class UserDTO {
 	
 	private String uid;
