@@ -9,6 +9,7 @@ public class RiskDTO {
     private String name;
     private int createTime;
     private int updateTime;
+    private int status;
     
     private List<String> traceUserList;
     
@@ -52,6 +53,12 @@ public class RiskDTO {
 	public String toString() {
 		return "RiskDTO : {rid:" + rid + ", tid:" + tid + ", name:" + name + ", createTime:" + createTime
 				+ ", updateTime:" + updateTime + ", traceUserList:" + traceUserList + "}";
+	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
 	}
     
     

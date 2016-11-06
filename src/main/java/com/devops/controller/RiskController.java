@@ -3,8 +3,6 @@ package com.devops.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -46,7 +44,8 @@ public class RiskController {
 	@ResponseBody
 	public String create( @RequestBody RiskDTO risk){
 		System.out.println(risk);
-		
+		risk.setName("testRiskName");
+		risk.setTid("1");
 		if(StringUtils.isEmpty(risk.getName())||StringUtils.isEmpty(risk.getTid()))
 			return "not enough information";
 		service.add(risk);
