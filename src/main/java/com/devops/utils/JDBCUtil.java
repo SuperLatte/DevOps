@@ -3,6 +3,7 @@ package com.devops.utils;
 import java.sql.*;
 
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 
 public class JDBCUtil {
@@ -34,7 +35,11 @@ public class JDBCUtil {
             System.out.println("localhost:" + assinged_port + " -> " + rhost + ":" + rport);
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", "root", "325632");
-        } catch (Exception e) {
+        } catch (JSchException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
             e.printStackTrace();
         } finally {
             System.out.println("MySQL has been connected!");
