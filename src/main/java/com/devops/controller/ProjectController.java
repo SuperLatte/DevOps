@@ -1,22 +1,34 @@
 package com.devops.controller;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devops.dto.ProjectDTO;
 
 @RestController
 @RequestMapping("/project")
-@EnableAutoConfiguration
 public class ProjectController {
 	
-	@RequestMapping("/{id}")
-	public ProjectDTO view(@PathVariable("id") Long id) {  
+	@RequestMapping("/")
+	public ProjectDTO view() {  
         
 		ProjectDTO project=new ProjectDTO();
-		
+		project.setId(1);
+		project.setName("test");
+		project.setCreatedBy("hh");
+		project.setCreateTime("ggg");
+		project.setUpdateTime("myname");
         return project;  
     }
+	
+	@RequestMapping(value="/testCreate",method=RequestMethod.POST)
+	public void create( @ModelAttribute("project") ProjectDTO project){
+		System.out.println(project.toString());
+	}
+	
 }
