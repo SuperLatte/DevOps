@@ -12,16 +12,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.devops.dto.UserDTO;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @EnableAutoConfiguration
 public class UserController {
 
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-	public @ResponseBody UserDTO login(@RequestParam(value="username") String username,@RequestParam(value="password") String password){
-		UserDTO user=new UserDTO();
-		user.setUsername(username);
-		user.setUid("123");
-		return user;
+	@RequestMapping(value="/loginAction",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> loginAction(@RequestParam(value="username") String username, @RequestParam(value="password") String password){
+//		UserDTO user=new UserDTO();
+//		user.setUsername(username);
+//		user.setUid("123");
+//		return user;
+		System.out.println(username + "\t" + password);
+
+		Map<String, Object> data = new HashMap<>();
+		data.put("url", '/');
+		return data;
 	}
 	
 	
