@@ -42,7 +42,7 @@ public class UserController {
 		user=userService.login(username, password);
 		
 		Map<String, Object> data = new HashMap<>();
-		data.put("url", "/myProjects");
+		data.put("url", "./myProjects");
 		if(user!=null&&!StringUtils.isEmpty(user.getName()))
 			data.put("username", user.getName());
 		else
