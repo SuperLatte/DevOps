@@ -19,6 +19,8 @@ import com.devops.service.serviceImpl.UserServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 
  * @author lujxu
@@ -30,6 +32,8 @@ public class UserController {
 
 	@Autowired
 	UserServiceImpl userService;
+	@Autowired
+	HttpServletRequest request;
 	
 	@RequestMapping(value="/loginAction",method=RequestMethod.POST)
 	@ResponseBody
@@ -43,6 +47,7 @@ public class UserController {
 			data.put("username", user.getName());
 		else
 			data.put("username", null);
+		request.getSession().setAttribute("user", user);
 		return data;
 	}
 	
