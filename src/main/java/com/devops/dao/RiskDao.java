@@ -16,6 +16,8 @@ public interface RiskDao {
 
     public List<Risk> getRiskByTeamID(String tid) throws SQLException;
 
+    public List<Risk> getRiskByUserID(String uid) throws SQLException;
+
     public List<RiskRecord> getRecords(String rid) throws SQLException;
 
     public RiskRecord getRecord(String rrid) throws SQLException;

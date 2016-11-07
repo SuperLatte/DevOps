@@ -60,6 +60,32 @@ public class RiskDaoImpl implements RiskDao {
     }
 
     @Override
+    public List<Risk> getRiskByUserID(String uid) throws SQLException {
+        List<Risk> risks = new ArrayList<>();
+
+        statement = connection.createStatement();
+        String sql = "select level from user where uid=" + uid;
+        resultSet = statement.executeQuery(sql);
+        resultSet.next();
+        int level = resultSet.getInt(1);
+        if (level == 0) {
+            sql = "select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =" + uid;
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                risks.add(tranRisk(resultSet));
+            }
+        } else if (level == 1) {
+            sql = "select r.* from risk r, team t where t.tid=r.tid and t.manager_id=" + uid;
+            resultSet = statement.executeQuery(sql);
+            while (resultSet.next()) {
+                risks.add(tranRisk(resultSet));
+            }
+        }
+        statement.close();
+        return risks;
+    }
+
+    @Override
     public List<RiskRecord> getRecords(String rid) throws SQLException {
         statement = connection.createStatement();
         String sql = "select * from risk_record where rid=" + rid;
@@ -186,12 +212,12 @@ public class RiskDaoImpl implements RiskDao {
 ////        riskTracing.setUid("1");
 ////        new RiskDaoImpl().addTracing(riskTracing);
 //
-//        Risk risk = new Risk();
-//        risk.setRid("18");
-//        risk.setTid("1");
-//        risk.setName("risk18");
-//        risk.setStatus(1);
-//        new RiskDaoImpl().editRisk(risk);
+////        Risk risk = new Risk();
+////        risk.setRid("18");
+////        risk.setTid("1");
+////        risk.setName("risk18");
+////        risk.setStatus(1);
+////        new RiskDaoImpl().editRisk(risk);
 ////        System.out.println(i);
 //
 ////        RiskRecord record = new RiskRecord();
@@ -202,5 +228,8 @@ public class RiskDaoImpl implements RiskDao {
 ////        record.setTraceUserid("2");
 ////        record.setTrigger("trigger");
 ////        new RiskDaoImpl().addRecord(record);
+//
+//        List<Risk> risks = new RiskDaoImpl().getRiskByUserID("3");
+//        System.out.println(risks);
 //    }
 }
