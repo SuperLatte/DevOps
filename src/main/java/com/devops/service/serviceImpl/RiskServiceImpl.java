@@ -45,7 +45,6 @@ public class RiskServiceImpl implements RiskService {
 
 	@Override
 	public List<RiskDTO> getRiskByTeam(String id) {
-		//TODO
 		List<Risk> riskList=null;
 		try {
 			riskList=riskDao.getRiskByTeamID(id);
@@ -158,8 +157,38 @@ public class RiskServiceImpl implements RiskService {
 
 	@Override
 	public List<RiskRecordDTO> getRiskRecordByRid(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		List<RiskRecord> list=null;
+		try {
+			list=riskDao.getRecords(id);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		List<RiskRecordDTO> result=new ArrayList<RiskRecordDTO>();
+		for(RiskRecord record:list){
+			RiskRecordDTO dto=EntityToDtoUtil.RiskRecordToDTO(record);
+			result.add(dto);
+		}
+		
+		return result;
+	}
+
+	@Override
+	public List<RiskDTO> getRiskByUser(String uid) {
+		List<Risk> list = null;
+		try{
+			list=riskDao.getRiskByUserID(uid);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		//TODO
+		List<RiskDTO> result=new ArrayList<RiskDTO>();
+		for(Risk risk:list){
+			RiskDTO dto=EntityToDtoUtil.RiskToRiskDTO(risk);
+			result.add(dto);
+		}
+		
+		return result;
 	}
 
 	
