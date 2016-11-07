@@ -5,6 +5,7 @@ package com.devops.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,8 @@ import com.devops.service.serviceImpl.UserServiceImpl;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 
  * @author lujxu
@@ -29,6 +32,8 @@ public class UserController {
 
 	@Autowired
 	UserServiceImpl userService;
+	@Autowired
+	HttpServletRequest request;
 	
 	@RequestMapping(value="/loginAction",method=RequestMethod.POST)
 	@ResponseBody
@@ -37,8 +42,12 @@ public class UserController {
 		user=userService.login(username, password);
 		
 		Map<String, Object> data = new HashMap<>();
-		data.put("url", "./myProjects");
-		data.put("username", user.getName());
+		data.put("url", "/myProjects");
+		if(user!=null&&!StringUtils.isEmpty(user.getName()))
+			data.put("username", user.getName());
+		else
+			data.put("username", null);
+		request.getSession().setAttribute("user", user);
 		return data;
 	}
 	
