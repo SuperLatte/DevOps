@@ -175,6 +175,12 @@ public class RiskServiceImpl implements RiskService {
 	@Override
 	public List<RiskDTO> getRiskByUser(String uid) {
 		List<Risk> list = null;
+		try{
+			list=riskDao.getRiskByUserID(uid);
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 		//TODO
 		List<RiskDTO> result=new ArrayList<RiskDTO>();
 		for(Risk risk:list){
