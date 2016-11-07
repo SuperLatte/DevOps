@@ -1,8 +1,8 @@
 package com.devops.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.WebApplicationContext;
 
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
+import com.devops.dto.UserDTO;
 import com.devops.service.RiskService;
 
 @RestController
@@ -24,17 +26,18 @@ public class RiskController {
 	
 	@Autowired
 	RiskService service;
+	@Autowired
+	WebApplicationContext context;
+	@Autowired
+	HttpServletRequest  request;
+	//@Autowired
+	//Session session;
 	
 	@RequestMapping("/risk")
 	@ResponseBody
 	public List<RiskDTO> list(@RequestParam(value = "tid") String tid){
 		System.out.println("tid="+tid);
 		List<RiskDTO> list=service.getRiskByTeam(tid);
-		RiskDTO dto=new RiskDTO();
-		dto.setName("test name");
-		list=new ArrayList<RiskDTO>();
-		list.add(dto);
-		
 		
 		return list;
 		
@@ -44,8 +47,6 @@ public class RiskController {
 	@ResponseBody
 	public String create( @RequestBody RiskDTO risk){
 		System.out.println(risk);
-		risk.setName("testRiskName");
-		risk.setTid("1");
 		if(StringUtils.isEmpty(risk.getName())||StringUtils.isEmpty(risk.getTid()))
 			return "not enough information";
 		service.add(risk);
@@ -69,7 +70,20 @@ public class RiskController {
 		return list;
 	}
 	
-	
+	@RequestMapping("/myrisk")
+	@ResponseBody
+	public List<RiskDTO> myRisk(){
+		
+		
+		UserDTO user=(UserDTO)request.getSession().getAttribute("user");
+		
+		if(user==null){
+			return null;
+		}
+		List<RiskDTO> list=service.getRiskByUser(user.getUid());
+		return list;
+		
+	}
 	
 
 

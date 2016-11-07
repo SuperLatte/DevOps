@@ -21,6 +21,8 @@ public interface RiskService {
 	public List<RiskRecordDTO> getRiskRecordByRid(String id);
 	
 	public void addRiskRecord(RiskRecordDTO riskRecordDTO);
+	
+	public List<RiskDTO> getRiskByUser(String uid);
 
 	
 	
