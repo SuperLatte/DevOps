@@ -25,4 +25,9 @@ public class IndexController {
         return "myRiskEntries";
     }
 
+    @RequestMapping("/newRisk")
+    public String newRisk() {
+        return "newRisk";
+    }
+
 }

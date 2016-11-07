@@ -36,7 +36,7 @@ public class JDBCUtil {
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", "root", "325632");
         } catch (Exception e) {
-            System.out.println("Failed to connect to MySQL!");
+            e.printStackTrace();
         } finally {
             System.out.println("MySQL has been connected!");
         }

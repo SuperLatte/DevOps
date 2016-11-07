@@ -113,11 +113,12 @@ public class RiskDaoImpl implements RiskDao {
         risk.setCreateTime(time);
 
         statement = connection.createStatement();
-        String sql = "insert into risk(tid, name, createtime, updatetime) values("
+        String sql = "insert into risk(tid, name, createtime, updatetime, status) values("
                 + risk.getTid() + ",'"
                 + risk.getName() + "',"
                 + risk.getCreateTime() + ","
-                + risk.getUpdateTime() + ")";
+                + risk.getUpdateTime() + ","
+                + risk.getStatus() + ")";
         boolean result = statement.execute(sql);
         resultSet = statement.executeQuery("SELECT MAX(rid) from risk");
         if (resultSet.next()) {
@@ -139,6 +140,22 @@ public class RiskDaoImpl implements RiskDao {
         statement.close();
     }
 
+    @Override
+    public void editRisk(Risk risk) throws SQLException {
+        int time = TimeGetter.getCurrentTime();
+        risk.setUpdateTime(time);
+
+        statement = connection.createStatement();
+        String sql = "update risk set "
+                + "tid=" + risk.getTid() + ","
+                + "name='" + risk.getName() + "',"
+                + "updatetime=" + risk.getUpdateTime() + ","
+                + "status=" + risk.getStatus() + " "
+                + "where rid=" + risk.getRid();
+        boolean result = statement.execute(sql);
+        statement.close();
+    }
+
     private Risk tranRisk(ResultSet resultSet) throws SQLException {
         Risk risk = new Risk();
         risk.setRid(resultSet.getString("rid"));
@@ -146,6 +163,7 @@ public class RiskDaoImpl implements RiskDao {
         risk.setName(resultSet.getString("name"));
         risk.setCreateTime(resultSet.getInt("createtime"));
         risk.setUpdateTime(resultSet.getInt("updateTime"));
+        risk.setStatus(resultSet.getInt("status"));
         return risk;
     }
 
@@ -168,19 +186,21 @@ public class RiskDaoImpl implements RiskDao {
 ////        riskTracing.setUid("1");
 ////        new RiskDaoImpl().addTracing(riskTracing);
 //
-////        Risk risk = new Risk();
-////        risk.setTid("1");
-////        risk.setName("risk12");
-////        int i = new RiskDaoImpl().addRisk(risk);
+//        Risk risk = new Risk();
+//        risk.setRid("18");
+//        risk.setTid("1");
+//        risk.setName("risk18");
+//        risk.setStatus(1);
+//        new RiskDaoImpl().editRisk(risk);
 ////        System.out.println(i);
 //
-//        RiskRecord record = new RiskRecord();
-//        record.setRid("5");
-//        record.setContent("content");
-//        record.setPossibility(1);
-//        record.setAffection(2);
-//        record.setTraceUserid("2");
-//        record.setTrigger("trigger");
-//        new RiskDaoImpl().addRecord(record);
+////        RiskRecord record = new RiskRecord();
+////        record.setRid("5");
+////        record.setContent("content");
+////        record.setPossibility(1);
+////        record.setAffection(2);
+////        record.setTraceUserid("2");
+////        record.setTrigger("trigger");
+////        new RiskDaoImpl().addRecord(record);
 //    }
 }

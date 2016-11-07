@@ -26,4 +26,6 @@ public interface RiskDao {
     public int addRisk(Risk risk) throws SQLException;
 
     public void addTracing(RiskTracing riskTracing) throws SQLException;
+
+    public void editRisk(Risk risk) throws SQLException;
 }

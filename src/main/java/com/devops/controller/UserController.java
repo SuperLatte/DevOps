@@ -37,7 +37,7 @@ public class UserController {
 		user=userService.login(username, password);
 		
 		Map<String, Object> data = new HashMap<>();
-		data.put("url", "/myProjects");
+		data.put("url", "./myProjects");
 		data.put("username", user.getName());
 		return data;
 	}
