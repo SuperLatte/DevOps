@@ -21,9 +21,11 @@ function addNewEntry() {
     let div2 = $('<div>').addClass('col-md-3 col-sm-3').append($('<div>').addClass('form-group').append($('<label>').attr('for', 'possibility_' + currentEntries).html('Possibility'), $('<select>').addClass('form-control').attr({id: "possibility_" + currentEntries }).append($('<option>').attr('value', '2').html('High'), $('<option>').attr('value', '1').html('Medium'), $('<option>').attr('value', '0').html('Low'))));
     let div3 = $('<div>').addClass('col-md-3 col-sm-3').append($('<div>').addClass('form-group').append($('<label>').attr('for', 'importance_' + currentEntries).html('Importance'), $('<select>').addClass('form-control').attr({id: "importance_" + currentEntries }).append($('<option>').attr('value', '2').html('High'), $('<option>').attr('value', '1').html('Medium'), $('<option>').attr('value', '0').html('Low'))));
     let div4 = $('<div>').addClass('col-md-3 col-sm-3').append($('<div>').addClass('form-group').append($('<label>').attr('for', 'trigger_' + currentEntries).html('Trigger/Threshold'), $('<input>').addClass('form-control').attr({ type: "text", id: "trigger_" + currentEntries })));
-    let div5 = $('<div>').addClass('col-md-1 col-sm-1').append($('<div>').append($('<a>').addClass('removeEntry').attr({ href: "javascript:void(0)", id: "re_" + currentEntries }).html('<i class="fa fa-times fa-2x" aria-hidden="true"></i>').click(function () {
+    let div5 = $('<div>').addClass('col-md-1 col-sm-1').addClass('removeEntry').append($('<div>').append($('<a>').attr({ href: "javascript:void(0)", id: "re_" + currentEntries }).html('<i class="fa fa-times fa-2x" aria-hidden="true"></i>').click(function () {
         let number = parseInt($(this).attr('id').split('_')[1]);
         $('.riskEntry[number="' + number.toString() + '"]').remove();
+
+        $('#entryName_' + (number - 1 )).focus();
 
         let block = $('#step-2');
         block.attr('currentEntries', parseInt(block.attr('currentEntries')) - 1);
@@ -34,6 +36,7 @@ function addNewEntry() {
     newEntry.appendTo(block_step_2);
 
     block_step_2.attr('currentEntries', currentEntries + 1);
+    $('#entryName_' + currentEntries).focus();
 }
 
 $(document).ready(function () {
@@ -44,7 +47,8 @@ $(document).ready(function () {
     $('.buttonNext').addClass('btn btn-success');
     $('.buttonPrevious').addClass('btn btn-primary');
     $('.buttonFinish').addClass('btn btn-default');
-    $('.stepContainer').css('height', '400px');
+
+    $('.stepContainer').css('height', '400px!important');
 
     $('#addNewEntry').click(addNewEntry);
 
