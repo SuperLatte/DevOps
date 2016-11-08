@@ -41,7 +41,16 @@ public class RiskDTO {
 	public void setCreateTime(int createTime) {
 		this.createTime = createTime;
 	}
-	public int getUpdateTime() {
+	public List<RiskTracingDTO> getTraceUserList() {
+		return traceUserList;
+	}
+	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
+		this.traceUserList = traceUserList;
+	}
+    public void addTracingUser(RiskTracingDTO tracingUser){
+    	this.traceUserList.add(tracingUser);
+    }
+    public int getUpdateTime() {
 		return updateTime;
 	}
 	public void setUpdateTime(int updateTime) {
@@ -53,15 +62,5 @@ public class RiskDTO {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public List<RiskTracingDTO> getTraceUserList() {
-		return traceUserList;
-	}
-	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
-		this.traceUserList = traceUserList;
-	}
-    public void addTracingUser(RiskTracingDTO tracingUser){
-    	this.traceUserList.add(tracingUser);
-    }
-    
 
 }
