@@ -1,5 +1,7 @@
 package com.devops;
 
+import java.util.logging.Logger;
+
 /**
  * Created by puddingtea07 on 11/6/16.
  */
@@ -14,14 +16,24 @@ import com.devops.utils.JDBCUtil;
 @SpringBootApplication
 @EnableAutoConfiguration
 public class Application extends SpringBootServletInitializer{
+	
+	/**
+	 * 
+	 */
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
         return builder.sources(Application.class);
     }
 
+    /**
+     * main
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
         SpringApplication.run(Application.class, args);
-        System.out.println("Springboot has been started!");
+    	Logger logger=Logger.getLogger("com.devops.Application");
+    	logger.info("Springboot has been started!");
         JDBCUtil.getConnection();
     }
 }
