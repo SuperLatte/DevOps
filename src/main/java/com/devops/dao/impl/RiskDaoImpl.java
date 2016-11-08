@@ -223,6 +223,23 @@ public class RiskDaoImpl implements RiskDao {
     }
 
     @Override
+    public List<RiskTracing> getTracingByRiskID(String rid) throws SQLException {
+        preparedStatement = connection.prepareStatement("SELECT * FROM risk_tracing where rid=?");
+        preparedStatement.setInt(1, Integer.parseInt(rid));
+        resultSet = preparedStatement.executeQuery();
+
+        List<RiskTracing> riskTracings = new ArrayList<>();
+        while (resultSet.next()) {
+            RiskTracing riskTracing = new RiskTracing();
+            riskTracing.setUid(resultSet.getString("uid"));
+            riskTracing.setRid(resultSet.getString("rid"));
+            riskTracings.add(riskTracing);
+        }
+        preparedStatement.close();
+        return riskTracings;
+    }
+
+    @Override
     public boolean editRisk(Risk risk) throws SQLException {
         int time = TimeGetter.getCurrentTime();
         risk.setUpdateTime(time);

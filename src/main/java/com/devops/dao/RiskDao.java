@@ -31,5 +31,7 @@ public interface RiskDao {
 
     public boolean deleteTracing(RiskTracing riskTracing) throws SQLException;
 
+    public List<RiskTracing> getTracingByRiskID(String rid) throws SQLException;
+
     public boolean editRisk(Risk risk) throws SQLException;
 }
