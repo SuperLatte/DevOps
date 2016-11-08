@@ -9,9 +9,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-	public static String hello="hello";
-	public static String login="login";
-	public static String myRiskEntries="myRiskEntries";
+	/**hello page**/
+	public static final String HELLO="hello";
+	/**
+	 * login page
+	 */
+	public static final String LOGIN="login";
+	/**
+	 * myRiskEntries
+	 */
+	public static final String MY_RISK_ENTRIES="myRiskEntries";
+	/**
+	 * newRisk
+	 */
+	public static final String NEW_RISK="newRisk";
 	
 	/**
 	 * 
@@ -19,7 +30,7 @@ public class IndexController {
 	 */
     @RequestMapping("/")
     public String index() {
-        return hello;
+        return HELLO;
     }
 
     /**
@@ -28,7 +39,7 @@ public class IndexController {
      */
     @RequestMapping("/login")
     public String loginPage() {
-        return login;
+        return LOGIN;
     }
 
     /**
@@ -37,7 +48,7 @@ public class IndexController {
      */
     @RequestMapping("/myProjects")
     public String projects() {
-        return myRiskEntries;
+        return MY_RISK_ENTRIES;
     }
 
     /**
@@ -46,7 +57,7 @@ public class IndexController {
      */
     @RequestMapping("/newRisk")
     public String newRisk() {
-        return "newRisk";
+        return NEW_RISK;
     }
 
 }
