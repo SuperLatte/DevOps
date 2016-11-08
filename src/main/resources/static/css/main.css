@@ -6,3 +6,18 @@
     margin-top: 23px;
     text-align: center;
 }
+
+.memberList {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.memberList li {
+    padding-bottom: 15px;
+}
+
+.memberList label {
+    padding-left: 8px;
+    cursor: pointer;
+}

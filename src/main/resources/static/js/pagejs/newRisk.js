@@ -48,7 +48,10 @@ $(document).ready(function () {
     $('.buttonPrevious').addClass('btn btn-primary');
     $('.buttonFinish').addClass('btn btn-default');
 
-    $('.stepContainer').css('height', '400px!important');
+    $('input[type="checkbox"]').iCheck({
+        checkboxClass: 'icheckbox_flat-green'
+    });
+
 
     $('#addNewEntry').click(addNewEntry);
 
