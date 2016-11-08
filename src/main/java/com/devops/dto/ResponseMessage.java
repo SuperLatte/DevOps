@@ -1,5 +1,10 @@
 package com.devops.dto;
-
+/**
+ * 
+ * @author lujxu
+ *
+ * @param <T>
+ */
 public class ResponseMessage<T> {
 	
 	private boolean success;

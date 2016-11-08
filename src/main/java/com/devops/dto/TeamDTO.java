@@ -1,5 +1,9 @@
 package com.devops.dto;
-
+/**
+ * 
+ * @author lujxu
+ *
+ */
 public class TeamDTO {
 	private String tid;
 	private String manager_id;

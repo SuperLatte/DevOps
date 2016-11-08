@@ -1,7 +1,11 @@
 package com.devops.dto;
 
 import java.util.List;
-
+/**
+ * 
+ * @author lujxu
+ *
+ */
 public class RiskDTO {
 	
 	private String rid;
