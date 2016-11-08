@@ -5,6 +5,9 @@ import java.sql.*;
 import com.jcraft.jsch.JSch;
 import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
+import com.mysql.jdbc.log.LogFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class JDBCUtil {
 
@@ -16,6 +19,7 @@ public class JDBCUtil {
     private static String host = "139.129.30.61";//SSH服务器
     private static int port = 22;//SSH访问端口
     private static Connection conn = null;
+    private static Logger LOGGER = LoggerFactory.getLogger(JDBCUtil.class);
 
     public static Connection getConnection() {
         return conn;
@@ -36,7 +40,7 @@ public class JDBCUtil {
 
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", "root", "325632");
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("context", e);
         } finally {
             System.out.println("MySQL has been connected!");
         }
