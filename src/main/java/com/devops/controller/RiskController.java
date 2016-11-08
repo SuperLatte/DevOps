@@ -74,22 +74,26 @@ public class RiskController {
 			response.setSuccess(false);
 			response.setMessage("Add Risk Failure");
 			response.setData(risk);
+			return response;
 		}
 		if(StringUtils.isEmpty(risk.getName())){
 			response.setSuccess(false);
 			response.setMessage("Please enter risk name");
 			response.setData(risk);
+			return response;
 		}
 		if(StringUtils.isEmpty(risk.getTid())){
 			response.setSuccess(false);
 			response.setMessage("Please enter team");
 			response.setData(risk);
+			return response;
 		}
 		RiskDTO returnDTO=service.add(risk);
 		if(returnDTO!=null){
 			response.setSuccess(true);
 			response.setMessage("success");
-			response.setData(returnDTO);			
+			response.setData(returnDTO);	
+			return response;
 		}else{
 			response.setSuccess(false);
 			response.setMessage("Add Risk Failure");
