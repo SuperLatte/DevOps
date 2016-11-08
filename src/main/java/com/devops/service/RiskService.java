@@ -10,9 +10,9 @@ public interface RiskService {
 	
 	public RiskDTO getRiskById(String id);
 	
-	public void add(RiskDTO risk);
+	public RiskDTO add(RiskDTO risk);
 	
-	public void update(RiskDTO risk);
+	public RiskDTO update(RiskDTO risk);
 	
 	public List<RiskDTO> getRiskByTeam(String id);
 	
@@ -20,7 +20,7 @@ public interface RiskService {
 	
 	public List<RiskRecordDTO> getRiskRecordByRid(String id);
 	
-	public void addRiskRecord(RiskRecordDTO riskRecordDTO);
+	public RiskRecordDTO addRiskRecord(RiskRecordDTO riskRecordDTO);
 	
 	public List<RiskDTO> getRiskByUser(String uid);
 

@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.context.WebApplicationContext;
 
+import com.devops.dto.ResponseMessage;
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
 import com.devops.dto.UserDTO;
@@ -27,61 +27,108 @@ public class RiskController {
 	@Autowired
 	RiskService service;
 	@Autowired
-	WebApplicationContext context;
-	@Autowired
 	HttpServletRequest  request;
-	//@Autowired
-	//Session session;
 	
 	@RequestMapping("/risk")
 	@ResponseBody
-	public List<RiskDTO> list(@RequestParam(value = "tid") String tid){
-		System.out.println("tid="+tid);
-		List<RiskDTO> list=service.getRiskByTeam(tid);
+	public ResponseMessage<List<RiskDTO>> list(@RequestParam(value = "tid") String tid){
 		
-		return list;
+		ResponseMessage<List<RiskDTO>> response=new ResponseMessage<>();
+		
+		List<RiskDTO> list=service.getRiskByTeam(tid);
+		if(list!=null&&!list.isEmpty()){
+			response.setSuccess(true);
+			response.setMessage("success");
+			response.setData(list);
+		}else{
+			response.setSuccess(false);
+			response.setMessage("There is no risk in this team.");
+		}
+		
+		
+		return response;
 		
 	}
 	
 	@RequestMapping(value="/risk/create",method=RequestMethod.POST)
 	@ResponseBody
-	public String create( @RequestBody RiskDTO risk){
-		System.out.println(risk);
-		if(StringUtils.isEmpty(risk.getName())||StringUtils.isEmpty(risk.getTid()))
-			return "not enough information";
-		service.add(risk);
-		return "success";
+	public ResponseMessage<RiskDTO> create( @RequestBody RiskDTO risk){
+		
+		ResponseMessage<RiskDTO> response=new ResponseMessage<>();
+		if(StringUtils.isEmpty(risk.getName())){
+			response.setSuccess(false);
+			response.setMessage("Please enter risk name");
+		}
+		if(StringUtils.isEmpty(risk.getTid())){
+			response.setSuccess(false);
+			response.setMessage("Please enter team");
+		}
+			
+		RiskDTO returnDTO=service.add(risk);
+		response.setSuccess(true);
+		response.setMessage("success");
+		response.setData(returnDTO);
+		
+		return response;
+		
 	}
 	
 	@RequestMapping("/risk/{id}")
 	@ResponseBody
-	public RiskDTO view(@PathVariable(value="id") String id) {  
-        System.out.println("rid="+id);
+	public ResponseMessage<RiskDTO> view(@PathVariable(value="id") String id) {  
+		ResponseMessage<RiskDTO> response=new ResponseMessage<>();
 		RiskDTO risk=service.getRiskById(id);
-	
-        return risk;  
+		if(risk!=null){
+			response.setSuccess(true);
+			response.setMessage("success");
+			response.setData(risk);
+		}else{
+			response.setSuccess(false);
+			response.setMessage("The Risk ID is invalid");
+		}
+        return response;  
     }
 	
 	@RequestMapping("/risk/{id}/detail")
 	@ResponseBody
-	public List<RiskRecordDTO> detail(@PathVariable(value="id")String id){
-		 System.out.println("id="+id);
+	public ResponseMessage<List<RiskRecordDTO>> detail(@PathVariable(value="id")String id){
+		ResponseMessage<List<RiskRecordDTO>> response=new ResponseMessage<>();
 		List<RiskRecordDTO> list=service.getRiskRecordByRid(id);
-		return list;
+		if(list!=null&&!list.isEmpty()){
+			response.setSuccess(true);
+			response.setMessage("success");
+			response.setData(list);
+		}else{
+			response.setSuccess(false);
+			response.setMessage("There is no risk in this team.");
+		}
+		return response;
 	}
 	
 	@RequestMapping("/myrisk")
 	@ResponseBody
-	public List<RiskDTO> myRisk(){
+	public ResponseMessage<List<RiskDTO>> myRisk(){
 		
+		ResponseMessage<List<RiskDTO>> response=new ResponseMessage<>();
 		
 		UserDTO user=(UserDTO)request.getSession().getAttribute("user");
 		
 		if(user==null){
-			return null;
+			response.setSuccess(false);
+			response.setMessage("Please Login");
+		}else{
+			List<RiskDTO> list=service.getRiskByUser(user.getUid());
+			if(list==null||!list.isEmpty()){
+				response.setSuccess(false);
+				response.setMessage("You are not assigned to any risk");
+			}else{
+				response.setSuccess(true);
+				response.setMessage("success");
+				response.setData(list);
+			}
 		}
-		List<RiskDTO> list=service.getRiskByUser(user.getUid());
-		return list;
+
+		return response;
 		
 	}
 	

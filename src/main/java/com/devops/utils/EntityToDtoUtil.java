@@ -4,11 +4,12 @@ import org.springframework.util.StringUtils;
 
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
-import com.devops.entity.Risk;
-import com.devops.entity.RiskRecord;
-import com.devops.entity.User;
+import com.devops.dto.RiskTracingDTO;
 import com.devops.dto.TeamDTO;
 import com.devops.dto.UserDTO;
+import com.devops.entity.Risk;
+import com.devops.entity.RiskRecord;
+import com.devops.entity.RiskTracing;
 import com.devops.entity.Team;
 import com.devops.entity.User;
 /**
@@ -41,7 +42,7 @@ public class EntityToDtoUtil {
 		dto.setTid(risk.getTid());
 		dto.setCreateTime(risk.getCreateTime());
 		dto.setUpdateTime(risk.getUpdateTime());
-		
+		dto.setStatus(risk.getStatus());
 		return dto;
 	}
 	
@@ -66,5 +67,16 @@ public class EntityToDtoUtil {
 		if(!StringUtils.isEmpty(team.getTid()))
 			teamDTO.setTid(team.getTid());
 		return teamDTO;
+	}
+	
+	public static RiskTracingDTO RiskTracingToDTO(RiskTracing tracing){
+		if(tracing==null)
+			return null;
+		RiskTracingDTO dto=new RiskTracingDTO();
+		dto.setRid(tracing.getRid());
+		dto.setUid(tracing.getUid());
+		
+		return dto;
+		
 	}
 }
