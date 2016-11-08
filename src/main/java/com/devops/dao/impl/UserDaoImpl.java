@@ -1,9 +1,6 @@
 package com.devops.dao.impl;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.List;
 
 import org.springframework.stereotype.Repository;
@@ -21,6 +18,7 @@ public class UserDaoImpl implements UserDao{
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public UserDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
@@ -29,12 +27,18 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUser(String username, String password) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from user where username='" + username + "'and password='" + password + "'";
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from user where username='" + username + "'and password='" + password + "'";
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from user where username=? and password=?");
+        preparedStatement.setString(1, username);
+        preparedStatement.setString(2, password);
+
+        resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             User user = tranUser(resultSet);
-            statement.close();
+            preparedStatement.close();
             return user;
         }
         return null;
@@ -42,12 +46,17 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUser(String uid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from user where uid=" + uid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from user where uid=" + uid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from user where uid=?");
+        preparedStatement.setInt(1, Integer.parseInt(uid));
+        resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             User user = tranUser(resultSet);
-            statement.close();
+            preparedStatement.close();
             return user;
         }
         return null;
@@ -62,4 +71,9 @@ public class UserDaoImpl implements UserDao{
         user.setLevel(resultSet.getInt("level"));
         return user;
     }
+
+//    public static void main(String[] args) throws SQLException {
+//        User user = new UserDaoImpl().getUser("gqy", "gqy123");
+//        System.out.println(user);
+//    }
 }

@@ -86,12 +86,4 @@ public class TeamDaoImpl implements TeamDao{
         return user;
     }
 
-//    public static void main(String[] args) {
-//        try {
-//            List<User> team = new TeamDaoImpl().getTeamMembers("1");
-//            System.out.println(team.size());
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
 }

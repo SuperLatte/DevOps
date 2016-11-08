@@ -8,14 +8,15 @@ import com.devops.entity.User;
 import com.devops.utils.JDBCUtil;
 import com.devops.utils.TimeGetter;
 
+import java.sql.*;
 import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import com.mysql.jdbc.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,6 +28,7 @@ public class RiskDaoImpl implements RiskDao {
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public RiskDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
@@ -129,7 +131,6 @@ public class RiskDaoImpl implements RiskDao {
 
         String rid = riskRecord.getRid();
         int result = statement.executeUpdate("update risk set updatetime=" + time + " where rid=" + rid);
-        System.out.println(result);
     }
 
     @Override
@@ -206,30 +207,4 @@ public class RiskDaoImpl implements RiskDao {
         return riskRecord;
     }
 
-//    public static void main(String[] args) throws SQLException {
-////        RiskTracing riskTracing = new RiskTracing();
-////        riskTracing.setRid("1");
-////        riskTracing.setUid("1");
-////        new RiskDaoImpl().addTracing(riskTracing);
-//
-////        Risk risk = new Risk();
-////        risk.setRid("18");
-////        risk.setTid("1");
-////        risk.setName("risk18");
-////        risk.setStatus(1);
-////        new RiskDaoImpl().editRisk(risk);
-////        System.out.println(i);
-//
-////        RiskRecord record = new RiskRecord();
-////        record.setRid("5");
-////        record.setContent("content");
-////        record.setPossibility(1);
-////        record.setAffection(2);
-////        record.setTraceUserid("2");
-////        record.setTrigger("trigger");
-////        new RiskDaoImpl().addRecord(record);
-//
-//        List<Risk> risks = new RiskDaoImpl().getRiskByUserID("3");
-//        System.out.println(risks);
-//    }
 }
