@@ -34,6 +34,11 @@ public class RiskController {
 	@Autowired
 	HttpServletRequest  request;
 	
+	/**
+	 * 
+	 * @param tid
+	 * @return
+	 */
 	@RequestMapping("/risk")
 	@ResponseBody
 	public ResponseMessage<List<RiskDTO>> list(@RequestParam(value = "tid") String tid){
@@ -55,6 +60,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param risk
+	 * @return
+	 */
 	@RequestMapping(value="/risk/create",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseMessage<RiskDTO> create( @RequestBody RiskDTO risk){
@@ -89,6 +99,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/risk/{id}")
 	@ResponseBody
 	public ResponseMessage<RiskDTO> view(@PathVariable(value="id") String id) {  
@@ -105,6 +120,11 @@ public class RiskController {
         return response;  
     }
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/risk/{id}/detail")
 	@ResponseBody
 	public ResponseMessage<List<RiskRecordDTO>> detail(@PathVariable(value="id")String id){
@@ -121,6 +141,10 @@ public class RiskController {
 		return response;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/myrisk")
 	@ResponseBody
 	public ResponseMessage<List<RiskDTO>> myRisk(){
@@ -148,6 +172,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param riskRecord
+	 * @return
+	 */
 	@RequestMapping("/risk/record/create")
 	@ResponseBody
 	public ResponseMessage<RiskRecordDTO> createRiskRecord(@RequestBody RiskRecordDTO riskRecord){
@@ -185,6 +214,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param riskTracing
+	 * @return
+	 */
 	@RequestMapping("/risk/tracing/create")
 	@ResponseBody
 	public ResponseMessage<RiskTracingDTO> createRiskTracing(@RequestBody RiskTracingDTO riskTracing){
@@ -221,6 +255,11 @@ public class RiskController {
 		 return response;
 	}
 	
+	/**
+	 * 
+	 * @param riskTracing
+	 * @return
+	 */
 	@RequestMapping("/risk/tracing/remove")
 	@ResponseBody
 	public ResponseMessage<RiskTracingDTO> removeRiskTracing(@RequestBody RiskTracingDTO riskTracing){

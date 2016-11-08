@@ -11,25 +11,74 @@ import com.devops.dto.RiskTracingDTO;
  *
  */
 public interface RiskService {
-	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public RiskDTO getRiskById(String id);
 	
+	/**
+	 * 
+	 * @param risk
+	 * @return
+	 */
 	public RiskDTO add(RiskDTO risk);
 	
+	/**
+	 * 
+	 * @param risk
+	 * @return
+	 */
 	public RiskDTO update(RiskDTO risk);
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public List<RiskDTO> getRiskByTeam(String id);
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public RiskRecordDTO getRiskRecordById(String id);
-	
+
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	public List<RiskRecordDTO> getRiskRecordByRid(String id);
-	
+
+	/**
+	 * 
+	 * @param riskRecordDTO
+	 * @return
+	 */
 	public RiskRecordDTO addRiskRecord(RiskRecordDTO riskRecordDTO);
-	
+
+	/**
+	 * 
+	 * @param uid
+	 * @return
+	 */
 	public List<RiskDTO> getRiskByUser(String uid);
-	
+
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
 	public RiskTracingDTO addTracing(RiskTracingDTO dto);
-	
+
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
 	public boolean removeTracing(RiskTracingDTO dto);
 	
 }
