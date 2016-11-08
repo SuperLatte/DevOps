@@ -17,9 +17,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.devops.dto.ResponseMessage;
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
+import com.devops.dto.RiskTracingDTO;
 import com.devops.dto.UserDTO;
 import com.devops.service.RiskService;
 
+/**
+ * @author Shifang
+ *
+ */
 @RestController
 @EnableAutoConfiguration
 public class RiskController {
@@ -55,20 +60,31 @@ public class RiskController {
 	public ResponseMessage<RiskDTO> create( @RequestBody RiskDTO risk){
 		
 		ResponseMessage<RiskDTO> response=new ResponseMessage<>();
+		if(risk==null){
+			response.setSuccess(false);
+			response.setMessage("Add Risk Failure");
+			response.setData(risk);
+		}
 		if(StringUtils.isEmpty(risk.getName())){
 			response.setSuccess(false);
 			response.setMessage("Please enter risk name");
+			response.setData(risk);
 		}
 		if(StringUtils.isEmpty(risk.getTid())){
 			response.setSuccess(false);
 			response.setMessage("Please enter team");
+			response.setData(risk);
 		}
-			
 		RiskDTO returnDTO=service.add(risk);
-		response.setSuccess(true);
-		response.setMessage("success");
-		response.setData(returnDTO);
-		
+		if(returnDTO!=null){
+			response.setSuccess(true);
+			response.setMessage("success");
+			response.setData(returnDTO);			
+		}else{
+			response.setSuccess(false);
+			response.setMessage("Add Risk Failure");
+			response.setData(risk);	
+		}
 		return response;
 		
 	}
@@ -132,6 +148,108 @@ public class RiskController {
 		
 	}
 	
-
+	@RequestMapping("/risk/record/create")
+	@ResponseBody
+	public ResponseMessage<RiskRecordDTO> createRiskRecord(@RequestBody RiskRecordDTO riskRecord){
+		ResponseMessage<RiskRecordDTO> response=new ResponseMessage<>();
+		if(riskRecord==null){
+			response.setSuccess(false);
+			response.setMessage("Add Risk Record Failure");
+			response.setData(riskRecord);
+			return response;
+		}
+		if(StringUtils.isEmpty(riskRecord.getContent())){
+			response.setSuccess(false);
+			response.setMessage("Please enter content");
+			response.setData(riskRecord);
+			return response;
+		}
+		if(StringUtils.isEmpty(riskRecord.getTrigger())){
+			response.setSuccess(false);
+			response.setMessage("Please enter trigger");
+			response.setData(riskRecord);
+			return response;
+		}
+		RiskRecordDTO dto=service.addRiskRecord(riskRecord);
+		if(dto!=null){
+			response.setData(dto);
+			response.setSuccess(true);
+			response.setMessage("success");
+		}else{
+			response.setSuccess(false);
+			response.setMessage("Add Risk Record Failure");
+			response.setData(riskRecord);
+		}
+		
+		return response;
+		
+	}
+	
+	@RequestMapping("/risk/tracing/create")
+	@ResponseBody
+	public ResponseMessage<RiskTracingDTO> createRiskTracing(@RequestBody RiskTracingDTO riskTracing){
+		 ResponseMessage<RiskTracingDTO> response=new ResponseMessage<>();
+		 if(riskTracing==null){
+			 response.setSuccess(false);
+			 response.setMessage("Add Risk Tracing Failure");
+			 response.setData(riskTracing);
+			 return response;
+		 }
+		 if(StringUtils.isEmpty(riskTracing.getRid())){
+			 response.setSuccess(false);
+			 response.setMessage("Please enter risk");
+			 response.setData(riskTracing);
+			 return response;
+		 }
+		 if(StringUtils.isEmpty(riskTracing.getUid())){
+			 response.setSuccess(false);
+			 response.setMessage("Please enter user");
+			 response.setData(riskTracing);
+			 return response;
+		 }
+		 RiskTracingDTO dto =service.addTracing(riskTracing);
+		 if(dto!=null){
+			 response.setData(dto);
+			 response.setSuccess(true);
+			 response.setMessage("success"); 
+		 }else{
+			 response.setSuccess(false);
+			 response.setMessage("Add Risk Tracing Failure"); 
+			 response.setData(riskTracing);
+		 }
+		 
+		 return response;
+	}
+	
+	@RequestMapping("/risk/tracing/remove")
+	@ResponseBody
+	public ResponseMessage<RiskTracingDTO> removeRiskTracing(@RequestBody RiskTracingDTO riskTracing){
+		 ResponseMessage<RiskTracingDTO> response=new ResponseMessage<>();
+		 if(riskTracing==null){
+			 response.setSuccess(false);
+			 response.setMessage("Remove Risk Tracing Failure");
+			 return response;
+		 }
+		 if(StringUtils.isEmpty(riskTracing.getRid())){
+			 response.setSuccess(false);
+			 response.setMessage("Please enter risk");
+			 return response;
+		 }
+		 if(StringUtils.isEmpty(riskTracing.getUid())){
+			 response.setSuccess(false);
+			 response.setMessage("Please enter user");
+			 return response;
+		 }
+		 boolean success=service.removeTracing(riskTracing);
+		 if(success){
+			 response.setSuccess(true);
+			 response.setMessage("success"); 
+		 }else{
+			 response.setSuccess(false);
+			 response.setMessage("Add Risk Tracing Failure"); 
+		 }
+		 
+		 return response;
+	}
 
 }
