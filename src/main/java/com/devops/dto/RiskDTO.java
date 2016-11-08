@@ -11,7 +11,7 @@ public class RiskDTO {
     private int updateTime;
     private int status;
     
-    private List<String> traceUserList;
+    private List<RiskTracingDTO> traceUserList;
     
 	public String getRid() {
 		return rid;
@@ -43,24 +43,21 @@ public class RiskDTO {
 	public void setUpdateTime(int updateTime) {
 		this.updateTime = updateTime;
 	}
-	public List<String> getTraceUserList() {
-		return traceUserList;
-	}
-	public void setTraceUserList(List<String> traceUserList) {
-		this.traceUserList = traceUserList;
-	}
-	@Override
-	public String toString() {
-		return "RiskDTO : {rid:" + rid + ", tid:" + tid + ", name:" + name + ", createTime:" + createTime
-				+ ", updateTime:" + updateTime + ", traceUserList:" + traceUserList + "}";
-	}
 	public int getStatus() {
 		return status;
 	}
 	public void setStatus(int status) {
 		this.status = status;
 	}
-    
+	public List<RiskTracingDTO> getTraceUserList() {
+		return traceUserList;
+	}
+	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
+		this.traceUserList = traceUserList;
+	}
+    public void addTracingUser(RiskTracingDTO tracingUser){
+    	this.traceUserList.add(tracingUser);
+    }
     
 
 }
