@@ -1,23 +1,26 @@
 package com.devops.utils;
 
+import java.io.FileInputStream;
 import java.sql.*;
+import java.util.Properties;
 
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
-import com.mysql.jdbc.log.LogFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class JDBCUtil {
 
-    private static int lport = 3306;//本地端口
-    private static String rhost = "139.129.30.61";//远程MySQL服务器
-    private static int rport = 3306;//远程MySQL服务端口
-    private static String user = "root";//SSH连接用户名
-    private static String password = "3256kugH";//SSH连接密码
-    private static String host = "139.129.30.61";//SSH服务器
-    private static int port = 22;//SSH访问端口
+    private static int lport;//本地端口
+    private static String rhost;//远程MySQL服务器
+    private static int rport;//远程MySQL服务端口
+    private static String ssh_user;//SSH连接用户名
+    private static String ssh_password;//SSH连接密码
+    private static String ssh_host;//SSH服务器
+    private static int ssh_port;//SSH访问端口
+    private static String db_user;//SSH连接用户名
+    private static String db_password;//SSH连接密码
+
     private static Connection conn = null;
     private static Logger LOGGER = LoggerFactory.getLogger(JDBCUtil.class);
 
@@ -26,19 +29,33 @@ public class JDBCUtil {
     }
 
     static {
+
         try {
+            Properties prop = new Properties();
+            prop.load(new FileInputStream("config.properties"));
+
+            lport           = Integer.parseInt(prop.getProperty("lport"));
+            rhost           = prop.getProperty("rhost");
+            rport           = Integer.parseInt(prop.getProperty("rport"));
+            ssh_user        = prop.getProperty("ssh_user");
+            ssh_password    = prop.getProperty("ssh_password");
+            ssh_host        = prop.getProperty("ssh_host");
+            ssh_port        = Integer.parseInt(prop.getProperty("ssh_port"));
+            db_user         = prop.getProperty("db_user");
+            db_password     = prop.getProperty("db_password");
+
             Class.forName("com.mysql.jdbc.Driver");
 
             JSch jsch = new JSch();
-            Session session = jsch.getSession(user, host, port);
-            session.setPassword(password);
+            Session session = jsch.getSession(ssh_user, ssh_host, ssh_port);
+            session.setPassword(ssh_password);
             session.setConfig("StrictHostKeyChecking", "no");
             session.connect();
             System.out.println(session.getServerVersion());//这里打印SSH服务器版本信息
             int assinged_port = session.setPortForwardingL(lport, rhost, rport);
             System.out.println("localhost:" + assinged_port + " -> " + rhost + ":" + rport);
 
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", "root", "325632");
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/risk", db_user, db_password);
         } catch (Exception e) {
             LOGGER.error("context", e);
         } finally {

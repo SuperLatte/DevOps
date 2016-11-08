@@ -1,0 +1,9 @@
+lport=3306
+rhost=127.0.0.1
+rport=3306
+ssh_user=root
+ssh_password=password
+ssh_host=127.0.0.1
+ssh_port=22
+db_user=root
+db_password=root
