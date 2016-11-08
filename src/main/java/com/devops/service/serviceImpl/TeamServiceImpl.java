@@ -3,6 +3,7 @@ package com.devops.service.serviceImpl;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,8 @@ public class TeamServiceImpl implements TeamService{
 	@Autowired
 	TeamDaoImpl teamDao;
 	
+	Logger logger=Logger.getLogger("com.devops.service.serviceImpl.TeamServiceImpl");
+	
 	@Override
 	public List<UserDTO> getAllUserByManagrId(String mid) { 
 		Team team=new Team();
@@ -33,7 +36,7 @@ public class TeamServiceImpl implements TeamService{
 				list.add(EntityToDtoUtil.UserToUserDTO(u));
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());;
 		}
 		return list;
 	}
@@ -46,7 +49,7 @@ public class TeamServiceImpl implements TeamService{
 			if(team==null) return null;
 			teamDTO=EntityToDtoUtil.TeamToTeamDTO(team);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());;
 		}
 		return teamDTO;
 	}
@@ -59,7 +62,7 @@ public class TeamServiceImpl implements TeamService{
 			if(team==null) return null;
 			teamDTO=EntityToDtoUtil.TeamToTeamDTO(team);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());;
 		}
 		return teamDTO;
 	}

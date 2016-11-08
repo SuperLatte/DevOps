@@ -28,10 +28,15 @@ public class TeamController {
 	@Autowired
 	TeamServiceImpl teamService;
 	
+	/**
+	 * get all teammates by manager id
+	 * @param mid
+	 * @return
+	 */
 	@RequestMapping(value="/teammates/{mid}",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> getTeammatesByManagerId(@PathVariable("mid") String mid){
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		List<UserDTO> list=teamService.getAllUserByManagrId(mid);
 		data.put("teammates",list);
 		return data;
@@ -45,16 +50,21 @@ public class TeamController {
 	@RequestMapping(value="/teamByMid/{mid}",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> getTeamByManagerId(@PathVariable("mid") String mid){
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		TeamDTO team=teamService.getTeamByManagerId(mid);
 		data.put("team", team);
 		return data;
 	}
 	
+	/**
+	 * get team by team id
+	 * @param tid
+	 * @return
+	 */
 	@RequestMapping(value="/team/{tid}",method=RequestMethod.GET)
 	@ResponseBody
 	public Map<String,Object> getTeamByTid(@PathVariable("tid") String tid){
-		Map<String, Object> data = new HashMap<String, Object>();
+		Map<String, Object> data = new HashMap<>();
 		TeamDTO team=teamService.getTeamById(tid);
 		data.put("team", team);
 		return data;

@@ -1,7 +1,6 @@
 package com.devops.service.serviceImpl;
 
 import java.sql.SQLException;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements UserService{
 		User u=new User();
 		try {
 			u=userDao.getUser(username, password);
-			logger.info("login: username:"+username+" password:"+password);
+			logger.info("login: username:"+username);
 		} catch (SQLException e) {
 			u=null;
 			logger.severe(e.getMessage());;
@@ -46,7 +45,7 @@ public class UserServiceImpl implements UserService{
 		try {
 			u=userDao.getUser(uid);
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());
 		}
 		if(u==null) return null;
 		return EntityToDtoUtil.UserToUserDTO(u);
