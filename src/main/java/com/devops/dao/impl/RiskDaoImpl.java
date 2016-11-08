@@ -4,7 +4,6 @@ import com.devops.dao.RiskDao;
 import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
 import com.devops.entity.RiskTracing;
-import com.devops.entity.User;
 import com.devops.utils.JDBCUtil;
 import com.devops.utils.TimeGetter;
 
@@ -13,10 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
-import com.mysql.jdbc.*;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -189,7 +186,7 @@ public class RiskDaoImpl implements RiskDao {
                 + risk.getCreateTime() + ","
                 + risk.getUpdateTime() + ","
                 + risk.getStatus() + ")";
-        boolean result = statement.execute(sql);
+        statement.execute(sql);
         resultSet = statement.executeQuery("SELECT MAX(rid) from risk");
         if (resultSet.next()) {
             int rid = resultSet.getInt(1);

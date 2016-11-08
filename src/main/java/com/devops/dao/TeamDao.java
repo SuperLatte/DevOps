@@ -11,10 +11,28 @@ import java.util.List;
  */
 public interface TeamDao {
 
+	/**
+	 * 
+	 * @param tid
+	 * @return
+	 * @throws SQLException
+	 */
     public Team getTeamByTeamID(String tid) throws SQLException;
 
+    /**
+     * 
+     * @param uid
+     * @return
+     * @throws SQLException
+     */
     public Team getTeamByManagerID(String uid) throws SQLException;
 
+    /**
+     * 
+     * @param tid
+     * @return
+     * @throws SQLException
+     */
     public List<User> getTeamMembers(String tid) throws SQLException;
 
 }

@@ -1,7 +1,6 @@
 package com.devops.dao.impl;
 
 import java.sql.*;
-import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
@@ -17,12 +16,12 @@ public class UserDaoImpl implements UserDao{
 
     private Connection connection;
     private ResultSet resultSet;
-    private Statement statement;
+   //private Statement statement;
     private PreparedStatement preparedStatement;
 
     public UserDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
-        statement = connection.createStatement();
+        //statement = connection.createStatement();
     }
 
     @Override

@@ -19,12 +19,12 @@ public class TeamDaoImpl implements TeamDao{
 
     private Connection connection;
     private ResultSet resultSet;
-    private Statement statement;
+//    private Statement statement;
     private PreparedStatement preparedStatement;
 
     public TeamDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
-        statement = connection.createStatement();
+//        statement = connection.createStatement();
     }
 
     @Override
