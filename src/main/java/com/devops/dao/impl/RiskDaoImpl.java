@@ -37,12 +37,17 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public Risk getRiskByRiskID(String rid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from risk where rid=" + rid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from risk where rid=" + rid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from risk where rid=?");
+        preparedStatement.setInt(1, Integer.parseInt(rid));
+        resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             Risk risk = tranRisk(resultSet);
-            statement.close();
+            preparedStatement.close();
             return risk;
         }
         return null;
@@ -50,14 +55,19 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public List<Risk> getRiskByTeamID(String tid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from risk where tid=" + tid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from risk where tid=" + tid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from risk where tid=?");
+        preparedStatement.setInt(1, Integer.parseInt(tid));
+        resultSet = preparedStatement.executeQuery();
+
         List<Risk> risks = new ArrayList<>();
         while (resultSet.next()) {
             risks.add(tranRisk(resultSet));
         }
-        statement.close();
+        preparedStatement.close();
         return risks;
     }
 
@@ -65,49 +75,73 @@ public class RiskDaoImpl implements RiskDao {
     public List<Risk> getRiskByUserID(String uid) throws SQLException {
         List<Risk> risks = new ArrayList<>();
 
-        statement = connection.createStatement();
-        String sql = "select level from user where uid=" + uid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select level from user where uid=" + uid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select level from user where uid=?");
+        preparedStatement.setInt(1, Integer.parseInt(uid));
+        resultSet = preparedStatement.executeQuery();
+
         resultSet.next();
         int level = resultSet.getInt(1);
         if (level == 0) {
-            sql = "select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =" + uid;
-            resultSet = statement.executeQuery(sql);
+//            sql = "select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =" + uid;
+//            resultSet = statement.executeQuery(sql);
+
+            preparedStatement = connection.prepareStatement("select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =?");
+            preparedStatement.setInt(1, Integer.parseInt(uid));
+            resultSet = preparedStatement.executeQuery();
+
             while (resultSet.next()) {
                 risks.add(tranRisk(resultSet));
             }
         } else if (level == 1) {
-            sql = "select r.* from risk r, team t where t.tid=r.tid and t.manager_id=" + uid;
-            resultSet = statement.executeQuery(sql);
+//            sql = "select r.* from risk r, team t where t.tid=r.tid and t.manager_id=" + uid;
+//            resultSet = statement.executeQuery(sql);
+
+            preparedStatement = connection.prepareStatement("select r.* from risk r, team t where t.tid=r.tid and t.manager_id=?");
+            preparedStatement.setInt(1, Integer.parseInt(uid));
+            resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 risks.add(tranRisk(resultSet));
             }
         }
-        statement.close();
+        preparedStatement.close();
         return risks;
     }
 
     @Override
     public List<RiskRecord> getRecords(String rid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from risk_record where rid=" + rid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from risk_record where rid=" + rid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from risk_record where rid=?");
+        preparedStatement.setInt(1, Integer.parseInt(rid));
+        resultSet = preparedStatement.executeQuery();
+
         List<RiskRecord> riskRecords = new ArrayList<>();
         while (resultSet.next()) {
             riskRecords.add(tranRiskRecord(resultSet));
         }
-        statement.close();
+        preparedStatement.close();
         return riskRecords;
     }
 
     @Override
     public RiskRecord getRecord(String rrid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from risk_record where rrid=" + rrid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from risk_record where rrid=" + rrid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from risk_record where rrid=?");
+        preparedStatement.setInt(1, Integer.parseInt(rrid));
+        resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             RiskRecord record = tranRiskRecord(resultSet);
-            statement.close();
+            preparedStatement.close();
             return record;
         }
         return null;

@@ -5,10 +5,7 @@ import com.devops.entity.Team;
 import com.devops.entity.User;
 import com.devops.utils.JDBCUtil;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +20,7 @@ public class TeamDaoImpl implements TeamDao{
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
+    private PreparedStatement preparedStatement;
 
     public TeamDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
@@ -31,12 +29,17 @@ public class TeamDaoImpl implements TeamDao{
 
     @Override
     public Team getTeamByTeamID(String tid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from team where tid=" + tid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from team where tid=" + tid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from team where tid=?");
+        preparedStatement.setInt(1, Integer.parseInt(tid));
+        resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             Team team = tranTeam(resultSet);
-            statement.close();
+            preparedStatement.close();
             return team;
         }
         return null;
@@ -44,12 +47,17 @@ public class TeamDaoImpl implements TeamDao{
 
     @Override
     public Team getTeamByManagerID(String uid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "select * from team where manager_id=" + uid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "select * from team where manager_id=" + uid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("select * from team where manager_id=?");
+        preparedStatement.setInt(1, Integer.parseInt(uid));
+        resultSet = preparedStatement.executeQuery();
+
         if (resultSet.next()) {
             Team team = tranTeam(resultSet);
-            statement.close();
+            preparedStatement.close();
             return team;
         }
         return null;
@@ -57,14 +65,19 @@ public class TeamDaoImpl implements TeamDao{
 
     @Override
     public List<User> getTeamMembers(String tid) throws SQLException {
-        statement = connection.createStatement();
-        String sql = "SELECT u.* FROM user u, team_relationship r where r.uid=u.uid and r.tid=" + tid;
-        resultSet = statement.executeQuery(sql);
+//        statement = connection.createStatement();
+//        String sql = "SELECT u.* FROM user u, team_relationship r where r.uid=u.uid and r.tid=" + tid;
+//        resultSet = statement.executeQuery(sql);
+
+        preparedStatement = connection.prepareStatement("SELECT u.* FROM user u, team_relationship r where r.uid=u.uid and r.tid=?");
+        preparedStatement.setInt(1, Integer.parseInt(tid));
+        resultSet = preparedStatement.executeQuery();
+
         List<User> user = new ArrayList<>();
         while (resultSet.next()) {
             user.add(tranUser(resultSet));
         }
-        statement.close();
+        preparedStatement.close();
         return user;
     }
 

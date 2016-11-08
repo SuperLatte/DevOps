@@ -72,8 +72,4 @@ public class UserDaoImpl implements UserDao{
         return user;
     }
 
-//    public static void main(String[] args) throws SQLException {
-//        User user = new UserDaoImpl().getUser("gqy", "gqy123");
-//        System.out.println(user);
-//    }
 }
