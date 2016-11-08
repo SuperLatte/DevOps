@@ -4,8 +4,12 @@ import java.util.List;
 
 import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
+import com.devops.dto.RiskTracingDTO;
 
-
+/**
+ * @author Shifang
+ *
+ */
 public interface RiskService {
 	
 	public RiskDTO getRiskById(String id);
@@ -23,7 +27,9 @@ public interface RiskService {
 	public RiskRecordDTO addRiskRecord(RiskRecordDTO riskRecordDTO);
 	
 	public List<RiskDTO> getRiskByUser(String uid);
-
 	
+	public RiskTracingDTO addTracing(RiskTracingDTO dto);
+	
+	public boolean removeTracing(RiskTracingDTO dto);
 	
 }

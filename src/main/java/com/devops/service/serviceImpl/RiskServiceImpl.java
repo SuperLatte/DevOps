@@ -21,6 +21,10 @@ import com.devops.service.RiskService;
 import com.devops.utils.DtoToEntityUtil;
 import com.devops.utils.EntityToDtoUtil;
 
+/**
+ * @author Shifang
+ *
+ */
 @Service
 public class RiskServiceImpl implements RiskService {
 	
@@ -275,6 +279,49 @@ public class RiskServiceImpl implements RiskService {
 		
 		return result;
 	}
+
+	@Override
+	public RiskTracingDTO addTracing(RiskTracingDTO dto) {
+		
+		RiskTracing tracing=DtoToEntityUtil.RiskTracingToEntity(dto);
+		boolean success=false;
+		try {
+			success=riskDao.addTracing(tracing);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		RiskTracingDTO returnDTO=null;
+		if(success){
+			returnDTO=new RiskTracingDTO();
+			returnDTO.setRid(dto.getRid());
+			returnDTO.setUid(dto.getUid());
+			try {
+				User user=userDao.getUser(dto.getUid());
+				if(user!=null){
+					returnDTO.setName(user.getName());
+					returnDTO.setUsername(user.getUsername());
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		return returnDTO;
+	}
+
+	@Override
+	public boolean removeTracing(RiskTracingDTO dto) {
+		RiskTracing tracing=DtoToEntityUtil.RiskTracingToEntity(dto);
+		boolean success=false;
+		try {
+			success=riskDao.addTracing(tracing);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return success;
+	}
+	
+	
 
 	
 
