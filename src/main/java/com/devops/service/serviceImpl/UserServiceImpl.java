@@ -1,6 +1,8 @@
 package com.devops.service.serviceImpl;
 
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,6 +12,7 @@ import com.devops.dto.UserDTO;
 import com.devops.entity.User;
 import com.devops.service.UserService;
 import com.devops.utils.EntityToDtoUtil;
+
 /**
  * 
  * @author lujxu
@@ -21,14 +24,17 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserDaoImpl userDao;
 	
+	Logger logger=Logger.getLogger("com.devops.service.serviceImpl.UserServiceImpl");
+	
 	@Override
 	public UserDTO login(String username, String password){
 		User u=new User();
 		try {
 			u=userDao.getUser(username, password);
+			logger.info("login: username:"+username+" password:"+password);
 		} catch (SQLException e) {
 			u=null;
-			e.printStackTrace();
+			logger.severe(e.getMessage());;
 		}
 		if(u==null) return null;
 		return EntityToDtoUtil.UserToUserDTO(u);
