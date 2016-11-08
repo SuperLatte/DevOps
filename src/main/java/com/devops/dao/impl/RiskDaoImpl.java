@@ -148,7 +148,7 @@ public class RiskDaoImpl implements RiskDao {
     }
 
     @Override
-    public void addRecord(RiskRecord riskRecord) throws SQLException {
+    public int addRecord(RiskRecord riskRecord) throws SQLException {
         int time = TimeGetter.getCurrentTime();
         riskRecord.setCreateTime(time);
 
@@ -164,7 +164,16 @@ public class RiskDaoImpl implements RiskDao {
         statement.execute(sql);
 
         String rid = riskRecord.getRid();
-        int result = statement.executeUpdate("update risk set updatetime=" + time + " where rid=" + rid);
+        statement.executeUpdate("update risk set updatetime=" + time + " where rid=" + rid);
+
+        resultSet = statement.executeQuery("SELECT MAX(rrid) from risk_record");
+        if (resultSet.next()) {
+            int rrid = resultSet.getInt(1);
+            statement.close();
+            return rrid;
+        }
+        statement.close();
+        return -1;
     }
 
     @Override
@@ -192,17 +201,29 @@ public class RiskDaoImpl implements RiskDao {
     }
 
     @Override
-    public void addTracing(RiskTracing riskTracing) throws SQLException {
+    public boolean addTracing(RiskTracing riskTracing) throws SQLException {
         statement = connection.createStatement();
         String sql = "insert into risk_tracing(rid, uid) values("
                 + riskTracing.getRid() + ","
                 + riskTracing.getUid() + ")";
         boolean result = statement.execute(sql);
         statement.close();
+        return result;
     }
 
     @Override
-    public void editRisk(Risk risk) throws SQLException {
+    public boolean deleteTracing(RiskTracing riskTracing) throws SQLException {
+        preparedStatement = connection.prepareStatement("DELETE FROM risk_tracing where rid=? and uid=?");
+        preparedStatement.setInt(1, Integer.parseInt(riskTracing.getRid()));
+        preparedStatement.setInt(2, Integer.parseInt(riskTracing.getUid()));
+
+        boolean result = preparedStatement.execute();
+        preparedStatement.close();
+        return result;
+    }
+
+    @Override
+    public boolean editRisk(Risk risk) throws SQLException {
         int time = TimeGetter.getCurrentTime();
         risk.setUpdateTime(time);
 
@@ -215,6 +236,7 @@ public class RiskDaoImpl implements RiskDao {
                 + "where rid=" + risk.getRid();
         boolean result = statement.execute(sql);
         statement.close();
+        return result;
     }
 
     private Risk tranRisk(ResultSet resultSet) throws SQLException {

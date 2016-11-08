@@ -22,12 +22,14 @@ public interface RiskDao {
 
     public RiskRecord getRecord(String rrid) throws SQLException;
 
-    public void addRecord(RiskRecord riskRecord) throws SQLException;
+    public int addRecord(RiskRecord riskRecord) throws SQLException;
 
     //remember to add tracing list & record
     public int addRisk(Risk risk) throws SQLException;
 
-    public void addTracing(RiskTracing riskTracing) throws SQLException;
+    public boolean addTracing(RiskTracing riskTracing) throws SQLException;
 
-    public void editRisk(Risk risk) throws SQLException;
+    public boolean deleteTracing(RiskTracing riskTracing) throws SQLException;
+
+    public boolean editRisk(Risk risk) throws SQLException;
 }
