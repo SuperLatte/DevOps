@@ -12,7 +12,11 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 import com.devops.utils.JDBCUtil;
 
-
+/**
+ * 
+ * @author lujxu
+ *
+ */
 @SpringBootApplication
 @EnableAutoConfiguration
 public class Application extends SpringBootServletInitializer{
