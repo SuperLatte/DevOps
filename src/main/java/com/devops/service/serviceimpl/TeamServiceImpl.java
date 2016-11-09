@@ -44,7 +44,7 @@ public class TeamServiceImpl implements TeamService{
 				list.add(EntityToDtoUtil.userToUserDTO(u));
 			}
 		} catch (SQLException e) {
-			logger.severe(e.getMessage());;
+			logger.severe(e.getMessage());
 		}
 		return list;
 	}
@@ -58,7 +58,7 @@ public class TeamServiceImpl implements TeamService{
 				return new TeamDTO();
 			teamDTO=EntityToDtoUtil.teamToTeamDTO(team);
 		} catch (SQLException e) {
-			logger.severe(e.getMessage());;
+			logger.severe(e.getMessage());
 		}
 		return teamDTO;
 	}
@@ -72,7 +72,7 @@ public class TeamServiceImpl implements TeamService{
 				return new TeamDTO();
 			teamDTO=EntityToDtoUtil.teamToTeamDTO(team);
 		} catch (SQLException e) {
-			logger.severe(e.getMessage());;
+			logger.severe(e.getMessage());
 		}
 		return teamDTO;
 	}

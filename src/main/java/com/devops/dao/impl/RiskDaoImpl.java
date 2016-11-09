@@ -27,6 +27,10 @@ public class RiskDaoImpl implements RiskDao {
     private Statement statement;
     private PreparedStatement preparedStatement;
 
+    /**
+     * 
+     * @throws SQLException
+     */
     public RiskDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
         statement = connection.createStatement();
@@ -34,9 +38,6 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public Risk getRiskByRiskID(String rid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from risk where rid=" + rid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from risk where rid=?");
         preparedStatement.setInt(1, Integer.parseInt(rid));
@@ -52,9 +53,6 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public List<Risk> getRiskByTeamID(String tid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from risk where tid=" + tid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from risk where tid=?");
         preparedStatement.setInt(1, Integer.parseInt(tid));
@@ -72,10 +70,6 @@ public class RiskDaoImpl implements RiskDao {
     public List<Risk> getRiskByUserID(String uid) throws SQLException {
         List<Risk> risks = new ArrayList<>();
 
-//        statement = connection.createStatement();
-//        String sql = "select level from user where uid=" + uid;
-//        resultSet = statement.executeQuery(sql);
-
         preparedStatement = connection.prepareStatement("select level from user where uid=?");
         preparedStatement.setInt(1, Integer.parseInt(uid));
         resultSet = preparedStatement.executeQuery();
@@ -83,8 +77,6 @@ public class RiskDaoImpl implements RiskDao {
         resultSet.next();
         int level = resultSet.getInt(1);
         if (level == 0) {
-//            sql = "select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =" + uid;
-//            resultSet = statement.executeQuery(sql);
 
             preparedStatement = connection.prepareStatement("select r.* from risk r, risk_tracing t where r.rid = t.rid and t.uid =?");
             preparedStatement.setInt(1, Integer.parseInt(uid));
@@ -94,8 +86,6 @@ public class RiskDaoImpl implements RiskDao {
                 risks.add(tranRisk(resultSet));
             }
         } else if (level == 1) {
-//            sql = "select r.* from risk r, team t where t.tid=r.tid and t.manager_id=" + uid;
-//            resultSet = statement.executeQuery(sql);
 
             preparedStatement = connection.prepareStatement("select r.* from risk r, team t where t.tid=r.tid and t.manager_id=?");
             preparedStatement.setInt(1, Integer.parseInt(uid));
@@ -110,9 +100,6 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public List<RiskRecord> getRecords(String rid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from risk_record where rid=" + rid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from risk_record where rid=?");
         preparedStatement.setInt(1, Integer.parseInt(rid));
@@ -128,9 +115,6 @@ public class RiskDaoImpl implements RiskDao {
 
     @Override
     public RiskRecord getRecord(String rrid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from risk_record where rrid=" + rrid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from risk_record where rrid=?");
         preparedStatement.setInt(1, Integer.parseInt(rrid));

@@ -19,19 +19,18 @@ public class TeamDaoImpl implements TeamDao{
 
     private Connection connection;
     private ResultSet resultSet;
-//    private Statement statement;
     private PreparedStatement preparedStatement;
 
+    /**
+     * 
+     * @throws SQLException
+     */
     public TeamDaoImpl() throws SQLException {
         connection = JDBCUtil.getConnection();
-//        statement = connection.createStatement();
     }
 
     @Override
     public Team getTeamByTeamID(String tid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from team where tid=" + tid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from team where tid=?");
         preparedStatement.setInt(1, Integer.parseInt(tid));
@@ -47,9 +46,6 @@ public class TeamDaoImpl implements TeamDao{
 
     @Override
     public Team getTeamByManagerID(String uid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from team where manager_id=" + uid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from team where manager_id=?");
         preparedStatement.setInt(1, Integer.parseInt(uid));
@@ -65,9 +61,6 @@ public class TeamDaoImpl implements TeamDao{
 
     @Override
     public List<User> getTeamMembers(String tid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "SELECT u.* FROM user u, team_relationship r where r.uid=u.uid and r.tid=" + tid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("SELECT u.* FROM user u, team_relationship r where r.uid=u.uid and r.tid=?");
         preparedStatement.setInt(1, Integer.parseInt(tid));
