@@ -30,7 +30,7 @@ public class IndexController {
 	 */
     @RequestMapping("/")
     public String index() {
-        return HELLO;
+        return LOGIN;
     }
 
     /**

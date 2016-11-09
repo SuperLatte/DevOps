@@ -19,7 +19,7 @@ import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
 import com.devops.dto.RiskTracingDTO;
 import com.devops.dto.UserDTO;
-import com.devops.service.RiskService;
+import com.devops.service.serviceimpl.RiskServiceImpl;
 
 /**
  * @author Shifang
@@ -30,7 +30,7 @@ import com.devops.service.RiskService;
 public class RiskController {
 	
 	@Autowired
-	RiskService service;
+	RiskServiceImpl service;
 	@Autowired
 	HttpServletRequest  request;
 	
