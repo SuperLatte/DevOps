@@ -60,11 +60,7 @@ public class JDBCConfig {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:" + lport + "/risk", dbUser, dbPassword);
             logger.info("MySQL has been connected!");
             return connection;
-        } catch (JSchException e) {
-            logger.error(e.getMessage());
-        } catch (SQLException e) {
-            logger.error(e.getMessage());
-        } catch (ClassNotFoundException e) {
+        } catch (JSchException|SQLException|ClassNotFoundException e) {
             logger.error(e.getMessage());
         }
         return null;
