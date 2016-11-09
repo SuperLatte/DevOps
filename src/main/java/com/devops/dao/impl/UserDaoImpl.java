@@ -24,6 +24,7 @@ public class UserDaoImpl implements UserDao{
      * @throws SQLException
      */
     public UserDaoImpl() throws SQLException {
+        //do nothing because of autowired
     }
 
     @Override

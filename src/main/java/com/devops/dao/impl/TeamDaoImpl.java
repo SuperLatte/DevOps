@@ -27,6 +27,7 @@ public class TeamDaoImpl implements TeamDao{
      * @throws SQLException
      */
     public TeamDaoImpl() throws SQLException {
+        //do nothing because of autowired
     }
 
     @Override

@@ -38,8 +38,13 @@ public class JDBCConfig {
     @Value( "${db_password}")
     private String dbPassword;//SSH连接密码
 
+    /**
+     * 
+     * @return
+     * @throws Exception
+     */
     @Bean
-    public Connection connection() throws JSchException, SQLException, ClassNotFoundException {
+    public Connection connection() throws Exception {
         Class.forName("com.mysql.jdbc.Driver");
         JSch jsch = new JSch();
         Session session = jsch.getSession(sshUser, sshHost, sshPort);

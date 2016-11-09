@@ -33,6 +33,7 @@ public class RiskDaoImpl implements RiskDao {
      * @throws SQLException
      */
     public RiskDaoImpl() throws SQLException {
+        //do nothing because of autowired
     }
 
     @Override
