@@ -28,42 +28,41 @@ public class RiskDTO {
 	public String getRid() {
 		return rid;
 	}
-	public void setRid(String rid) {
-		this.rid = rid;
-	}
 	public String getTid() {
 		return tid;
-	}
-	public void setTid(String tid) {
-		this.tid = tid;
 	}
 	public String getName() {
 		return name;
 	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public int getCreateTime() {
 		return createTime;
-	}
-	public void setCreateTime(int createTime) {
-		this.createTime = createTime;
 	}
 	public List<RiskTracingDTO> getTraceUserList() {
 		return traceUserList;
 	}
-	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
-		this.traceUserList = traceUserList;
-	}
-	
-    public int getUpdateTime() {
+	public int getUpdateTime() {
 		return updateTime;
-	}
-	public void setUpdateTime(int updateTime) {
-		this.updateTime = updateTime;
 	}
 	public int getStatus() {
 		return status;
+	}
+	public void setRid(String rid) {
+		this.rid = rid;
+	}
+	public void setTid(String tid) {
+		this.tid = tid;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public void setCreateTime(int createTime) {
+		this.createTime = createTime;
+	}
+	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
+		this.traceUserList = traceUserList;
+	}
+	public void setUpdateTime(int updateTime) {
+		this.updateTime = updateTime;
 	}
 	public void setStatus(int status) {
 		this.status = status;
