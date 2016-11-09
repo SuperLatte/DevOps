@@ -3,6 +3,7 @@ package com.devops.utils;
 import java.sql.*;
 
 import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,18 +46,27 @@ public class JDBCConfig {
      * @throws Exception
      */
     @Bean
-    public Connection connection() throws Exception {
-        Class.forName("com.mysql.jdbc.Driver");
-        JSch jsch = new JSch();
-        Session session = jsch.getSession(sshUser, sshHost, sshPort);
-        session.setPassword(sshPassword);
-        session.setConfig("StrictHostKeyChecking", "no");
-        session.connect();
-        logger.info(session.getServerVersion());//这里打印SSH服务器版本信息
-        int assingedPort = session.setPortForwardingL(lport, rhost, rport);
-        logger.info("localhost:" + assingedPort + " -> " + rhost + ":" + rport);
-        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:"+lport+"/risk", dbUser, dbPassword);
-        logger.info("MySQL has been connected!");
-        return connection;
+    public Connection connection() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            JSch jsch = new JSch();
+            Session session = jsch.getSession(sshUser, sshHost, sshPort);
+            session.setPassword(sshPassword);
+            session.setConfig("StrictHostKeyChecking", "no");
+            session.connect();
+            logger.info(session.getServerVersion());//这里打印SSH服务器版本信息
+            int assingedPort = session.setPortForwardingL(lport, rhost, rport);
+            logger.info("localhost:" + assingedPort + " -> " + rhost + ":" + rport);
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:" + lport + "/risk", dbUser, dbPassword);
+            logger.info("MySQL has been connected!");
+            return connection;
+        } catch (JSchException e) {
+            logger.error(e.getMessage());
+        } catch (SQLException e) {
+            logger.error(e.getMessage());
+        } catch (ClassNotFoundException e) {
+            logger.error(e.getMessage());
+        }
+        return null;
     }
 }
