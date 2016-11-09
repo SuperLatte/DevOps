@@ -1,7 +1,6 @@
 package com.devops.dao.impl;
 
 import java.sql.*;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,17 +17,17 @@ public class UserDaoImpl implements UserDao{
     @Autowired
     private Connection connection;
     private ResultSet resultSet;
-    private Statement statement;
     private PreparedStatement preparedStatement;
 
+    /**
+     * 
+     * @throws SQLException
+     */
     public UserDaoImpl() throws SQLException {
     }
 
     @Override
     public User getUser(String username, String password) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from user where username='" + username + "'and password='" + password + "'";
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from user where username=? and password=?");
         preparedStatement.setString(1, username);
@@ -45,9 +44,6 @@ public class UserDaoImpl implements UserDao{
 
     @Override
     public User getUser(String uid) throws SQLException {
-//        statement = connection.createStatement();
-//        String sql = "select * from user where uid=" + uid;
-//        resultSet = statement.executeQuery(sql);
 
         preparedStatement = connection.prepareStatement("select * from user where uid=?");
         preparedStatement.setInt(1, Integer.parseInt(uid));

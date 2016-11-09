@@ -9,8 +9,21 @@ import java.sql.SQLException;
  */
 public interface UserDao {
 
+	/**
+	 * 
+	 * @param username
+	 * @param password
+	 * @return
+	 * @throws SQLException
+	 */
     public User getUser(String username, String password) throws SQLException;
 
+    /**
+     * 
+     * @param uid
+     * @return
+     * @throws SQLException
+     */
     public User getUser(String uid) throws SQLException;
 
 }

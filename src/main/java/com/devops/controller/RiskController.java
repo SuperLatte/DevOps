@@ -34,6 +34,14 @@ public class RiskController {
 	@Autowired
 	HttpServletRequest  request;
 	
+	public static final String SUCCESS="success";
+	public static final String ADD_RISK_TRACING_FAIL="Add Risk Tracing Failure";
+	
+	/**
+	 * 
+	 * @param tid
+	 * @return
+	 */
 	@RequestMapping("/risk")
 	@ResponseBody
 	public ResponseMessage<List<RiskDTO>> list(@RequestParam(value = "tid") String tid){
@@ -43,7 +51,7 @@ public class RiskController {
 		List<RiskDTO> list=service.getRiskByTeam(tid);
 		if(list!=null&&!list.isEmpty()){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(list);
 		}else{
 			response.setSuccess(false);
@@ -55,6 +63,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param risk
+	 * @return
+	 */
 	@RequestMapping(value="/risk/create",method=RequestMethod.POST)
 	@ResponseBody
 	public ResponseMessage<RiskDTO> create( @RequestBody RiskDTO risk){
@@ -64,22 +77,26 @@ public class RiskController {
 			response.setSuccess(false);
 			response.setMessage("Add Risk Failure");
 			response.setData(risk);
+			return response;
 		}
 		if(StringUtils.isEmpty(risk.getName())){
 			response.setSuccess(false);
 			response.setMessage("Please enter risk name");
 			response.setData(risk);
+			return response;
 		}
 		if(StringUtils.isEmpty(risk.getTid())){
 			response.setSuccess(false);
 			response.setMessage("Please enter team");
 			response.setData(risk);
+			return response;
 		}
 		RiskDTO returnDTO=service.add(risk);
 		if(returnDTO!=null){
 			response.setSuccess(true);
-			response.setMessage("success");
-			response.setData(returnDTO);			
+			response.setMessage(SUCCESS);
+			response.setData(returnDTO);	
+			return response;
 		}else{
 			response.setSuccess(false);
 			response.setMessage("Add Risk Failure");
@@ -89,6 +106,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/risk/{id}")
 	@ResponseBody
 	public ResponseMessage<RiskDTO> view(@PathVariable(value="id") String id) {  
@@ -96,7 +118,7 @@ public class RiskController {
 		RiskDTO risk=service.getRiskById(id);
 		if(risk!=null){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(risk);
 		}else{
 			response.setSuccess(false);
@@ -105,6 +127,11 @@ public class RiskController {
         return response;  
     }
 	
+	/**
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/risk/{id}/detail")
 	@ResponseBody
 	public ResponseMessage<List<RiskRecordDTO>> detail(@PathVariable(value="id")String id){
@@ -112,7 +139,7 @@ public class RiskController {
 		List<RiskRecordDTO> list=service.getRiskRecordByRid(id);
 		if(list!=null&&!list.isEmpty()){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(list);
 		}else{
 			response.setSuccess(false);
@@ -121,6 +148,10 @@ public class RiskController {
 		return response;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	@RequestMapping("/myrisk")
 	@ResponseBody
 	public ResponseMessage<List<RiskDTO>> myRisk(){
@@ -139,7 +170,7 @@ public class RiskController {
 				response.setMessage("You are not assigned to any risk");
 			}else{
 				response.setSuccess(true);
-				response.setMessage("success");
+				response.setMessage(SUCCESS);
 				response.setData(list);
 			}
 		}
@@ -148,6 +179,11 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param riskRecord
+	 * @return
+	 */
 	@RequestMapping("/risk/record/create")
 	@ResponseBody
 	public ResponseMessage<RiskRecordDTO> createRiskRecord(@RequestBody RiskRecordDTO riskRecord){
@@ -174,7 +210,7 @@ public class RiskController {
 		if(dto!=null){
 			response.setData(dto);
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 		}else{
 			response.setSuccess(false);
 			response.setMessage("Add Risk Record Failure");
@@ -185,13 +221,18 @@ public class RiskController {
 		
 	}
 	
+	/**
+	 * 
+	 * @param riskTracing
+	 * @return
+	 */
 	@RequestMapping("/risk/tracing/create")
 	@ResponseBody
 	public ResponseMessage<RiskTracingDTO> createRiskTracing(@RequestBody RiskTracingDTO riskTracing){
 		 ResponseMessage<RiskTracingDTO> response=new ResponseMessage<>();
 		 if(riskTracing==null){
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure");
+			 response.setMessage(ADD_RISK_TRACING_FAIL);
 			 response.setData(riskTracing);
 			 return response;
 		 }
@@ -211,16 +252,21 @@ public class RiskController {
 		 if(dto!=null){
 			 response.setData(dto);
 			 response.setSuccess(true);
-			 response.setMessage("success"); 
+			 response.setMessage(SUCCESS); 
 		 }else{
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure"); 
+			 response.setMessage(ADD_RISK_TRACING_FAIL); 
 			 response.setData(riskTracing);
 		 }
 		 
 		 return response;
 	}
 	
+	/**
+	 * 
+	 * @param riskTracing
+	 * @return
+	 */
 	@RequestMapping("/risk/tracing/remove")
 	@ResponseBody
 	public ResponseMessage<RiskTracingDTO> removeRiskTracing(@RequestBody RiskTracingDTO riskTracing){
@@ -243,10 +289,10 @@ public class RiskController {
 		 boolean success=service.removeTracing(riskTracing);
 		 if(success){
 			 response.setSuccess(true);
-			 response.setMessage("success"); 
+			 response.setMessage(SUCCESS); 
 		 }else{
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure"); 
+			 response.setMessage(ADD_RISK_TRACING_FAIL); 
 		 }
 		 
 		 return response;

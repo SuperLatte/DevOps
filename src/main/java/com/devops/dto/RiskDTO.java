@@ -17,6 +17,14 @@ public class RiskDTO {
     
     private List<RiskTracingDTO> traceUserList;
     
+    /**
+	 * 
+	 * @param tracingUser
+	 */
+    public void addTracingUser(RiskTracingDTO tracingUser){
+    	this.traceUserList.add(tracingUser);
+    }
+    
 	public String getRid() {
 		return rid;
 	}
@@ -47,9 +55,7 @@ public class RiskDTO {
 	public void setTraceUserList(List<RiskTracingDTO> traceUserList) {
 		this.traceUserList = traceUserList;
 	}
-    public void addTracingUser(RiskTracingDTO tracingUser){
-    	this.traceUserList.add(tracingUser);
-    }
+	
     public int getUpdateTime() {
 		return updateTime;
 	}

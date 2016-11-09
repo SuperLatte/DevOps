@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devops.dto.UserDTO;
-import com.devops.service.serviceImpl.UserServiceImpl;
+import com.devops.service.serviceimpl.UserServiceImpl;
 
 import java.util.HashMap;
 import java.util.Map;

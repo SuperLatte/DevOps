@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.devops.dto.TeamDTO;
 import com.devops.dto.UserDTO;
-import com.devops.service.serviceImpl.TeamServiceImpl;
+import com.devops.service.serviceimpl.TeamServiceImpl;
 
 /**
  * 

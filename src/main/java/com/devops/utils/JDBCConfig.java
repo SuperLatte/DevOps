@@ -19,7 +19,7 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:config.properties")
 public class JDBCConfig {
 
-    private static Logger LOGGER = LoggerFactory.getLogger(JDBCConfig.class);
+    private static Logger logger = LoggerFactory.getLogger(JDBCConfig.class);
 
     @Value("${lport}")
     private int lport;//本地端口
@@ -42,13 +42,16 @@ public class JDBCConfig {
 
     @Bean
     public Connection connection() throws JSchException, SQLException {
-            JSch jsch = new JSch();
-            Session session = jsch.getSession(ssh_user, ssh_host, ssh_port);
-            session.setPassword(ssh_password);
-            session.setConfig("StrictHostKeyChecking", "no");
-            session.connect();
-            System.out.println(session.getServerVersion());//这里打印SSH服务器版本信息
-            int assinged_port = session.setPortForwardingL(lport, rhost, rport);
-            return DriverManager.getConnection("jdbc:mysql://localhost:"+lport+"/risk", db_user, db_password);
+        JSch jsch = new JSch();
+        Session session = jsch.getSession(ssh_user, ssh_host, ssh_port);
+        session.setPassword(ssh_password);
+        session.setConfig("StrictHostKeyChecking", "no");
+        session.connect();
+        logger.info(session.getServerVersion());//这里打印SSH服务器版本信息
+        int assingedPort = session.setPortForwardingL(lport, rhost, rport);
+        logger.info("localhost:" + assingedPort + " -> " + rhost + ":" + rport);
+        Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:"+lport+"/risk", db_user, db_password);
+        logger.info("MySQL has been connected!");
+        return connection;
     }
 }

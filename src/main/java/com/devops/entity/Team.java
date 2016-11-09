@@ -5,7 +5,7 @@ package com.devops.entity;
  */
 public class Team {
     private String tid;
-    private String manager_id;
+    private String managerId;
     private String name;
 
     public String getTid() {
@@ -16,12 +16,12 @@ public class Team {
         this.tid = tid;
     }
 
-    public String getManager_id() {
-        return manager_id;
+    public String getManagerId() {
+        return managerId;
     }
 
-    public void setManager_id(String manager_id) {
-        this.manager_id = manager_id;
+    public void setManagerId(String managerId) {
+        this.managerId = managerId;
     }
 
     public String getName() {

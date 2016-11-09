@@ -1,4 +1,4 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -33,10 +33,11 @@ public class UserServiceImpl implements UserService{
 			logger.info("login: username:"+username);
 		} catch (SQLException e) {
 			u=null;
-			logger.severe(e.getMessage());;
+			logger.severe(e.getMessage());
 		}
-		if(u==null) return null;
-		return EntityToDtoUtil.UserToUserDTO(u);
+		if(u==null) 
+			new UserDTO();
+		return EntityToDtoUtil.userToUserDTO(u);
 	}
 
 	@Override
@@ -47,8 +48,9 @@ public class UserServiceImpl implements UserService{
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
-		if(u==null) return null;
-		return EntityToDtoUtil.UserToUserDTO(u);
+		if(u==null) 
+			new UserDTO();
+		return EntityToDtoUtil.userToUserDTO(u);
 	}
 
 }

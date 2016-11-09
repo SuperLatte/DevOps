@@ -6,7 +6,7 @@ package com.devops.dto;
  */
 public class TeamDTO {
 	private String tid;
-	private String manager_id;
+	private String managerId;
 	private String name;
 
 	public String getTid() {
@@ -17,12 +17,12 @@ public class TeamDTO {
 		this.tid = tid;
 	}
 
-	public String getManager_id() {
-		return manager_id;
+	public String getManagerId() {
+		return managerId;
 	}
 
-	public void setManager_id(String manager_id) {
-		this.manager_id = manager_id;
+	public void setManagerId(String managerId) {
+		this.managerId = managerId;
 	}
 
 	public String getName() {
