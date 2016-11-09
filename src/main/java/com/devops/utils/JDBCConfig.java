@@ -3,7 +3,6 @@ package com.devops.utils;
 import java.sql.*;
 
 import com.jcraft.jsch.JSch;
-import com.jcraft.jsch.JSchException;
 import com.jcraft.jsch.Session;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,7 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-
+/**
+ * @author yidzhou
+ */
 @Configuration
 @PropertySource("classpath:config.properties")
 public class JDBCConfig {
@@ -39,7 +40,7 @@ public class JDBCConfig {
     private String dbPassword;//SSH连接密码
 
     /**
-     * 
+     *
      * @return
      * @throws Exception
      */
