@@ -9,9 +9,23 @@ import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
 import com.devops.entity.RiskTracing;
 
+/**
+ * 
+ * @author lujxu
+ *
+ */
 public class DtoToEntityUtil {
 	
-	public static Risk RiskDtoToEntity(RiskDTO dto){
+	private DtoToEntityUtil(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public static Risk riskDtoToEntity(RiskDTO dto){
 		if(dto==null)
 			return null;
 		Risk risk=new Risk();
@@ -23,8 +37,12 @@ public class DtoToEntityUtil {
 		risk.setStatus(dto.getStatus());
 		return risk;
 	}
-	
-	public static RiskRecord RiskRecordDtoToEntity(RiskRecordDTO dto){
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public static RiskRecord riskRecordDtoToEntity(RiskRecordDTO dto){
 		if(dto==null)
 			return null;
 		RiskRecord record=new RiskRecord();
@@ -38,8 +56,12 @@ public class DtoToEntityUtil {
 		record.setTrigger(dto.getTrigger());
 		return record;
 	}
-	
-	public static RiskTracing RiskTracingToEntity(RiskTracingDTO dto){
+	/**
+	 * 
+	 * @param dto
+	 * @return
+	 */
+	public static RiskTracing riskTracingToEntity(RiskTracingDTO dto){
 
 		if(dto==null||StringUtils.isEmpty(dto.getRid())||StringUtils.isEmpty(dto.getUid()))
 			return null;

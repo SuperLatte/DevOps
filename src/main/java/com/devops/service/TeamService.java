@@ -5,6 +5,11 @@ import java.util.List;
 import com.devops.dto.TeamDTO;
 import com.devops.dto.UserDTO;
 
+/**
+ * 
+ * @author lujxu
+ *
+ */
 public interface TeamService {
 
 	/**

@@ -1,4 +1,4 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ public class RiskServiceImpl implements RiskService {
 		if (risk == null) {
 			return null;
 		}
-		return EntityToDtoUtil.RiskToRiskDTO(risk);
+		return EntityToDtoUtil.riskToRiskDTO(risk);
 	}
 
 	@Override
@@ -59,10 +59,10 @@ public class RiskServiceImpl implements RiskService {
 			logger.severe(e.getMessage());
 		}
 		if (riskList == null || riskList.isEmpty())
-			return new ArrayList<RiskDTO>();
+			return new ArrayList<>();
 		List<RiskDTO> dtoList = new ArrayList<>();
 		for (Risk risk : riskList) {
-			RiskDTO dto = EntityToDtoUtil.RiskToRiskDTO(risk);
+			RiskDTO dto = EntityToDtoUtil.riskToRiskDTO(risk);
 			dtoList.add(dto);
 		}
 		return dtoList;
@@ -74,7 +74,7 @@ public class RiskServiceImpl implements RiskService {
 		if (riskDTO == null)
 			return null;
 
-		Risk risk = DtoToEntityUtil.RiskDtoToEntity(riskDTO);
+		Risk risk = DtoToEntityUtil.riskDtoToEntity(riskDTO);
 		int rid = 0;
 		try {
 			rid = riskDao.addRisk(risk);
@@ -88,7 +88,7 @@ public class RiskServiceImpl implements RiskService {
 		List<RiskTracingDTO> userList = riskDTO.getTraceUserList();
 
 		for (RiskTracingDTO tracingDTO : userList) {
-			RiskTracing tracing = DtoToEntityUtil.RiskTracingToEntity(tracingDTO);
+			RiskTracing tracing = DtoToEntityUtil.riskTracingToEntity(tracingDTO);
 			try {
 				riskDao.addTracing(tracing);
 			} catch (SQLException e) {
@@ -115,8 +115,23 @@ public class RiskServiceImpl implements RiskService {
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
+		
 		if (risk == null)
 			return null;
+		
+		modifyRisk(riskDTO,risk);
+		
+		try {
+			riskDao.editRisk(risk);
+		} catch (SQLException e2) {
+			logger.severe(e2.getMessage());
+			return riskDTO;
+		}
+		return EntityToDtoUtil.riskToRiskDTO(risk);
+	}
+	
+	private void modifyRisk(RiskDTO riskDTO,Risk risk){
+		
 		if (!StringUtils.isEmpty(riskDTO.getName()))
 			risk.setName(riskDTO.getName());
 		if (!StringUtils.isEmpty(riskDTO.getTid()))
@@ -125,14 +140,6 @@ public class RiskServiceImpl implements RiskService {
 			risk.setCreateTime(riskDTO.getCreateTime());
 		if (riskDTO.getUpdateTime() > 0)
 			risk.setUpdateTime(riskDTO.getUpdateTime());
-
-		try {
-			riskDao.editRisk(risk);
-		} catch (SQLException e2) {
-			logger.severe(e2.getMessage());
-			return riskDTO;
-		}
-		return EntityToDtoUtil.RiskToRiskDTO(risk);
 	}
 	
 	@Override
@@ -143,7 +150,7 @@ public class RiskServiceImpl implements RiskService {
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());
 		}
-		RiskRecordDTO dto = EntityToDtoUtil.RiskRecordToDTO(record);
+		RiskRecordDTO dto = EntityToDtoUtil.riskRecordToDTO(record);
 		String userId = dto.getTraceUserId();
 		try {
 			User user = userDao.getUser(userId);
@@ -160,7 +167,7 @@ public class RiskServiceImpl implements RiskService {
 		if (riskRecordDTO == null)
 			return null;
 
-		RiskRecord record = DtoToEntityUtil.RiskRecordDtoToEntity(riskRecordDTO);
+		RiskRecord record = DtoToEntityUtil.riskRecordDtoToEntity(riskRecordDTO);
 		int rrid = 0;
 		try {
 			rrid = riskDao.addRecord(record);
@@ -177,7 +184,7 @@ public class RiskServiceImpl implements RiskService {
 			logger.severe(e.getMessage());
 		}
 
-		return EntityToDtoUtil.RiskRecordToDTO(record);
+		return EntityToDtoUtil.riskRecordToDTO(record);
 
 	}
 
@@ -191,7 +198,7 @@ public class RiskServiceImpl implements RiskService {
 		}
 		List<RiskRecordDTO> result = new ArrayList<>();
 		for (RiskRecord record : list) {
-			RiskRecordDTO dto = EntityToDtoUtil.RiskRecordToDTO(record);
+			RiskRecordDTO dto = EntityToDtoUtil.riskRecordToDTO(record);
 			result.add(dto);
 		}
 
@@ -210,13 +217,12 @@ public class RiskServiceImpl implements RiskService {
 		List<RiskDTO> result = new ArrayList<>();
 		try {
 			for (Risk risk : list) {
-				RiskDTO dto = EntityToDtoUtil.RiskToRiskDTO(risk);
-				List<RiskTracing> tracingList = null;
+				RiskDTO dto = EntityToDtoUtil.riskToRiskDTO(risk);
 
-				tracingList = riskDao.getTracingByRiskID(risk.getRid());
+				 List<RiskTracing> tracingList = riskDao.getTracingByRiskID(risk.getRid());
 
 				for (RiskTracing tracing : tracingList) {
-					RiskTracingDTO tracingDTO = EntityToDtoUtil.RiskTracingToDTO(tracing);
+					RiskTracingDTO tracingDTO = EntityToDtoUtil.riskTracingToDTO(tracing);
 					modifyRiskTracingDTO(tracingDTO);
 					dto.addTracingUser(tracingDTO);
 				}
@@ -239,7 +245,7 @@ public class RiskServiceImpl implements RiskService {
 	@Override
 	public RiskTracingDTO addTracing(RiskTracingDTO dto) {
 
-		RiskTracing tracing = DtoToEntityUtil.RiskTracingToEntity(dto);
+		RiskTracing tracing = DtoToEntityUtil.riskTracingToEntity(dto);
 		boolean success = false;
 		try {
 			success = riskDao.addTracing(tracing);
@@ -267,7 +273,7 @@ public class RiskServiceImpl implements RiskService {
 
 	@Override
 	public boolean removeTracing(RiskTracingDTO dto) {
-		RiskTracing tracing = DtoToEntityUtil.RiskTracingToEntity(dto);
+		RiskTracing tracing = DtoToEntityUtil.riskTracingToEntity(dto);
 		boolean success = false;
 		try {
 			success = riskDao.addTracing(tracing);

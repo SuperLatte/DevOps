@@ -19,7 +19,16 @@ import com.devops.entity.User;
  */
 public class EntityToDtoUtil {
 
-	public static UserDTO UserToUserDTO(User user){
+	private EntityToDtoUtil(){
+		
+	}
+	
+	/**
+	 * 
+	 * @param user
+	 * @return
+	 */
+	public static UserDTO userToUserDTO(User user){
 		if(user==null)
 			return null;
 		UserDTO userDTO=new UserDTO();
@@ -32,8 +41,12 @@ public class EntityToDtoUtil {
 		return userDTO;
 	}
 	
-
-	public static RiskDTO RiskToRiskDTO(Risk risk){
+	/**
+	 * 
+	 * @param risk
+	 * @return
+	 */
+	public static RiskDTO riskToRiskDTO(Risk risk){
 		if(risk==null)
 			return null;
 		RiskDTO dto=new RiskDTO();
@@ -46,22 +59,31 @@ public class EntityToDtoUtil {
 		return dto;
 	}
 	
-	public static RiskRecordDTO RiskRecordToDTO(RiskRecord riskRecord){
+	/**
+	 * 
+	 * @param riskRecord
+	 * @return
+	 */
+	public static RiskRecordDTO riskRecordToDTO(RiskRecord riskRecord){
 		if(riskRecord==null)
 			return null;
 		RiskRecordDTO dto=new RiskRecordDTO();
 		dto.setRid(riskRecord.getRid());
 		dto.setTraceUserId(riskRecord.getRrid());
-		//TODO
 		return dto;
 	}	
 		
-
-	public static TeamDTO TeamToTeamDTO(Team team){
-		if(team==null) return null;
+	/**
+	 * 
+	 * @param team
+	 * @return
+	 */
+	public static TeamDTO teamToTeamDTO(Team team){
+		if(team==null) 
+			return null;
 		TeamDTO teamDTO=new TeamDTO();
-		if(!StringUtils.isEmpty(team.getManager_id()))
-			teamDTO.setManager_id(team.getManager_id());
+		if(!StringUtils.isEmpty(team.getManagerId()))
+			teamDTO.setManagerId(team.getManagerId());
 		if(!StringUtils.isEmpty(team.getName()))
 			teamDTO.setName(team.getName());
 		if(!StringUtils.isEmpty(team.getTid()))
@@ -69,7 +91,12 @@ public class EntityToDtoUtil {
 		return teamDTO;
 	}
 	
-	public static RiskTracingDTO RiskTracingToDTO(RiskTracing tracing){
+	/**
+	 * 
+	 * @param tracing
+	 * @return
+	 */
+	public static RiskTracingDTO riskTracingToDTO(RiskTracing tracing){
 		if(tracing==null)
 			return null;
 		RiskTracingDTO dto=new RiskTracingDTO();

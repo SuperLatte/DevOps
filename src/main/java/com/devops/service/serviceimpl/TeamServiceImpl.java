@@ -1,4 +1,4 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -15,6 +15,12 @@ import com.devops.entity.Team;
 import com.devops.entity.User;
 import com.devops.service.TeamService;
 import com.devops.utils.EntityToDtoUtil;
+
+/**
+ * 
+ * @author lujxu
+ *
+ */
 @Service
 public class TeamServiceImpl implements TeamService{
 
@@ -26,14 +32,16 @@ public class TeamServiceImpl implements TeamService{
 	@Override
 	public List<UserDTO> getAllUserByManagrId(String mid) { 
 		Team team=new Team();
-		List<UserDTO> list=new ArrayList<UserDTO>();
+		List<UserDTO> list=new ArrayList<>();
 		try {
 			team=teamDao.getTeamByManagerID(mid);
-			if(team==null) return null;
+			if(team==null) 
+				return new ArrayList<>();
 			List<User> user=teamDao.getTeamMembers(team.getTid());
-			if(user==null) return null;
+			if(user==null) 
+				return new ArrayList<>();
 			for(User u:user){
-				list.add(EntityToDtoUtil.UserToUserDTO(u));
+				list.add(EntityToDtoUtil.userToUserDTO(u));
 			}
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());;
@@ -46,8 +54,9 @@ public class TeamServiceImpl implements TeamService{
 		TeamDTO teamDTO=new TeamDTO();
 		try {
 			Team team=teamDao.getTeamByManagerID(mid);
-			if(team==null) return null;
-			teamDTO=EntityToDtoUtil.TeamToTeamDTO(team);
+			if(team==null) 
+				return new TeamDTO();
+			teamDTO=EntityToDtoUtil.teamToTeamDTO(team);
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());;
 		}
@@ -59,8 +68,9 @@ public class TeamServiceImpl implements TeamService{
 		TeamDTO teamDTO=new TeamDTO();
 		try {
 			Team team=teamDao.getTeamByTeamID(tid);
-			if(team==null) return null;
-			teamDTO=EntityToDtoUtil.TeamToTeamDTO(team);
+			if(team==null) 
+				return new TeamDTO();
+			teamDTO=EntityToDtoUtil.teamToTeamDTO(team);
 		} catch (SQLException e) {
 			logger.severe(e.getMessage());;
 		}

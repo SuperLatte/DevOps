@@ -34,6 +34,9 @@ public class RiskController {
 	@Autowired
 	HttpServletRequest  request;
 	
+	public static final String SUCCESS="success";
+	public static final String ADD_RISK_TRACING_FAIL="Add Risk Tracing Failure";
+	
 	/**
 	 * 
 	 * @param tid
@@ -48,7 +51,7 @@ public class RiskController {
 		List<RiskDTO> list=service.getRiskByTeam(tid);
 		if(list!=null&&!list.isEmpty()){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(list);
 		}else{
 			response.setSuccess(false);
@@ -91,7 +94,7 @@ public class RiskController {
 		RiskDTO returnDTO=service.add(risk);
 		if(returnDTO!=null){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(returnDTO);	
 			return response;
 		}else{
@@ -115,7 +118,7 @@ public class RiskController {
 		RiskDTO risk=service.getRiskById(id);
 		if(risk!=null){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(risk);
 		}else{
 			response.setSuccess(false);
@@ -136,7 +139,7 @@ public class RiskController {
 		List<RiskRecordDTO> list=service.getRiskRecordByRid(id);
 		if(list!=null&&!list.isEmpty()){
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 			response.setData(list);
 		}else{
 			response.setSuccess(false);
@@ -167,7 +170,7 @@ public class RiskController {
 				response.setMessage("You are not assigned to any risk");
 			}else{
 				response.setSuccess(true);
-				response.setMessage("success");
+				response.setMessage(SUCCESS);
 				response.setData(list);
 			}
 		}
@@ -207,7 +210,7 @@ public class RiskController {
 		if(dto!=null){
 			response.setData(dto);
 			response.setSuccess(true);
-			response.setMessage("success");
+			response.setMessage(SUCCESS);
 		}else{
 			response.setSuccess(false);
 			response.setMessage("Add Risk Record Failure");
@@ -229,7 +232,7 @@ public class RiskController {
 		 ResponseMessage<RiskTracingDTO> response=new ResponseMessage<>();
 		 if(riskTracing==null){
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure");
+			 response.setMessage(ADD_RISK_TRACING_FAIL);
 			 response.setData(riskTracing);
 			 return response;
 		 }
@@ -249,10 +252,10 @@ public class RiskController {
 		 if(dto!=null){
 			 response.setData(dto);
 			 response.setSuccess(true);
-			 response.setMessage("success"); 
+			 response.setMessage(SUCCESS); 
 		 }else{
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure"); 
+			 response.setMessage(ADD_RISK_TRACING_FAIL); 
 			 response.setData(riskTracing);
 		 }
 		 
@@ -286,10 +289,10 @@ public class RiskController {
 		 boolean success=service.removeTracing(riskTracing);
 		 if(success){
 			 response.setSuccess(true);
-			 response.setMessage("success"); 
+			 response.setMessage(SUCCESS); 
 		 }else{
 			 response.setSuccess(false);
-			 response.setMessage("Add Risk Tracing Failure"); 
+			 response.setMessage(ADD_RISK_TRACING_FAIL); 
 		 }
 		 
 		 return response;

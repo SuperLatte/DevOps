@@ -85,7 +85,7 @@ public class TeamDaoImpl implements TeamDao{
         Team team = new Team();
         team.setTid(resultSet.getString("tid"));
         team.setName(resultSet.getString("name"));
-        team.setManager_id(resultSet.getString("manager_id"));
+        team.setManagerId(resultSet.getString("manager_id"));
         return team;
     }
 
