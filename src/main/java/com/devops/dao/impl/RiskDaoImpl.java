@@ -5,7 +5,6 @@ import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
 import com.devops.entity.RiskTracing;
 import com.devops.entity.User;
-import com.devops.utils.JDBCUtil;
 import com.devops.utils.TimeGetter;
 
 import java.sql.*;
@@ -17,6 +16,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.mysql.jdbc.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -25,14 +25,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class RiskDaoImpl implements RiskDao {
 
+    @Autowired
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
     public RiskDaoImpl() throws SQLException {
-        connection = JDBCUtil.getConnection();
-        statement = connection.createStatement();
     }
 
     @Override

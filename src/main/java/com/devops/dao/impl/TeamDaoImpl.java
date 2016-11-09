@@ -3,12 +3,12 @@ package com.devops.dao.impl;
 import com.devops.dao.TeamDao;
 import com.devops.entity.Team;
 import com.devops.entity.User;
-import com.devops.utils.JDBCUtil;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -17,14 +17,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class TeamDaoImpl implements TeamDao{
 
+    @Autowired
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
     public TeamDaoImpl() throws SQLException {
-        connection = JDBCUtil.getConnection();
-        statement = connection.createStatement();
     }
 
     @Override

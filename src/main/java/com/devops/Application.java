@@ -1,6 +1,5 @@
 package com.devops;
 
-import java.io.FileInputStream;
 import java.util.logging.Logger;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.support.SpringBootServletInitializer;
-import com.devops.utils.JDBCUtil;
+
 /**
  * 
  * @author lujxu
@@ -36,10 +35,8 @@ public class Application extends SpringBootServletInitializer{
      */
     public static void main(String[] args) throws Exception {
 
-
         SpringApplication.run(Application.class, args);
     	Logger logger=Logger.getLogger("com.devops.Application");
     	logger.info("Springboot has been started!");
-        JDBCUtil.getConnection();
     }
 }

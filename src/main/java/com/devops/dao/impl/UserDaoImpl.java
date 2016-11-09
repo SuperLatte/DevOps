@@ -3,11 +3,11 @@ package com.devops.dao.impl;
 import java.sql.*;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.devops.dao.UserDao;
 import com.devops.entity.User;
-import com.devops.utils.JDBCUtil;
 
 /**
  * Created by super on 2016/11/6.
@@ -15,14 +15,13 @@ import com.devops.utils.JDBCUtil;
 @Repository
 public class UserDaoImpl implements UserDao{
 
+    @Autowired
     private Connection connection;
     private ResultSet resultSet;
     private Statement statement;
     private PreparedStatement preparedStatement;
 
     public UserDaoImpl() throws SQLException {
-        connection = JDBCUtil.getConnection();
-        statement = connection.createStatement();
     }
 
     @Override
