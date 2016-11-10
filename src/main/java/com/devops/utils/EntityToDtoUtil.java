@@ -38,6 +38,8 @@ public class EntityToDtoUtil {
 			userDTO.setUid(user.getUid());
 		if(!StringUtils.isEmpty(user.getUsername()))
 			userDTO.setUsername(user.getUsername());
+
+		userDTO.setLevel(user.getLevel());
 		return userDTO;
 	}
 	

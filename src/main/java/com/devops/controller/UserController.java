@@ -53,17 +53,18 @@ public class UserController {
 	public Map<String, Object> loginAction(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password) {
 		UserDTO user = userService.login(username, password);
-		List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
-
-
 		Map<String, Object> data = new HashMap<>();
-		data.put("url", "./myProjects");
-		data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
 
-		if (user != null && !StringUtils.isEmpty(user.getName()))
-			data.put("username", user.getName());
-		else
-			data.put("username", null);
+
+		if (user != null && !StringUtils.isEmpty(user.getName())){
+			data.put("loginResponse", "SUCCESS");
+			List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
+			data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
+			data.put("user", JSONObject.fromObject(user).toString());
+			data.put("url", "./myProjects");
+		} else {
+			data.put("loginResponse", "FAILED");
+		}
 		return data;
 	}
 

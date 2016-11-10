@@ -10,9 +10,13 @@ $(document).ready(function () {
         let password = $('input[placeholder="Password"]').val();
 
         $.post('./loginAction', {username: username, password: password}, function (data) {
-            storage.setItem("username", data.username);
-            storage.setItem("riskList", data.riskList);
-            window.location.href = data.url;
+            if (data.loginResponse == 'SUCCESS') {
+                storage.setItem("user", data.user);
+                storage.setItem("riskList", data.riskList);
+                window.location.href = data.url;
+            } else {
+                console.log('Login failed');
+            }
         } )
     });
 

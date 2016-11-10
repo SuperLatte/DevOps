@@ -4,8 +4,10 @@
 storage = window.localStorage;
 
 function dataRender() {
-    $('h2[data-aria="username"]').text(storage.getItem("username"));
-    $('a[data-aria="username"]').text(storage.getItem("username"));
+    let user = JSON.parse(storage.getItem("user"));
+    $('h2[data-aria="username"]').text(user.name);
+    $('a[data-aria="username"]').text(user.name);
+
 
     let riskList = JSON.parse(storage.getItem("riskList"));
     riskList.forEach(function (risk) {
@@ -62,7 +64,9 @@ function dataRender() {
 
 
 
+
 $(document).ready(function () {
+
    dataRender();
 
     $('a[role="viewDetails"]').click(function () {
@@ -71,6 +75,20 @@ $(document).ready(function () {
             window.location.href = data.url;
         })
     });
+
+    $('a[role="mar"]').click(function () {
+        let rid = $(this).parent('td').attr('rid');
+        $.post('./markAsResolved', {rid: rid}, function (data) {
+            window.location.href = data.url;
+        })
+    });
+    $('a[role="delete"]').click(function () {
+        let rid = $(this).parent('td').attr('rid');
+        $.post('./markAsResolved', {rid: rid}, function (data) {
+            window.location.href = data.url;
+        })
+    });
+
 
     $('a[role="logout"]').click(function () {
         storage.clear();

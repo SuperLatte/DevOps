@@ -11,6 +11,8 @@ public class UserDTO {
 	private String name;
 	/** login name **/
 	private String username;
+
+	private int level;
 	
 	public String getUid() {
 		return uid;
@@ -34,6 +36,13 @@ public class UserDTO {
 	public String toString() {
 		return "UserDTO : {uid:" + uid + ", name:" + name + ", username:" + username + "}";
 	}
-	
-	
+
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
+	}
 }
