@@ -189,6 +189,7 @@ public class RiskController {
 	@ResponseBody
 	public ResponseMessage<RiskRecordDTO> createRiskRecord(@RequestBody RiskRecordDTO riskRecord){
 		ResponseMessage<RiskRecordDTO> response=new ResponseMessage<>();
+		
 		if(riskRecord==null){
 			response.setSuccess(false);
 			response.setMessage("Add Risk Record Failure");
@@ -207,7 +208,15 @@ public class RiskController {
 			response.setData(riskRecord);
 			return response;
 		}
+		
+		UserDTO user=(UserDTO)request.getSession().getAttribute("user");
+		riskRecord.setTraceUserId(user.getUid());
+		
 		RiskRecordDTO dto=service.addRiskRecord(riskRecord);
+		RiskDTO risk=service.getRiskById(dto.getRid());
+		risk.setDescription(dto.get);
+		
+		
 		if(dto!=null){
 			response.setData(dto);
 			response.setSuccess(true);
