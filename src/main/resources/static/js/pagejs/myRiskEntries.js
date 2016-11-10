@@ -2,14 +2,14 @@
  * Created by puddingtea07 on 11/6/16.
  */
 storage = window.localStorage;
+let user = JSON.parse(storage.getItem("user"));
+let riskList = JSON.parse(storage.getItem("riskList"));
 
 function dataRender() {
-    let user = JSON.parse(storage.getItem("user"));
     $('h2[data-aria="username"]').text(user.name);
+
+
     $('a[data-aria="username"]').text(user.name);
-
-
-    let riskList = JSON.parse(storage.getItem("riskList"));
     riskList.forEach(function (risk) {
         let tr = $('<tr>');
         let rid = $('<td>').text(risk.rid)
@@ -69,7 +69,22 @@ function dataRender() {
 
 $(document).ready(function () {
 
-   dataRender();
+    dataRender();
+
+    $('a[role="newRisk"]').click(function () {
+        if (user.level == 0) {
+            alert("You have no access");
+        } else {
+            $.get('/teamByMid/' + user.uid, {uid: user.uid}, function (data) {
+                storage.setItem("members", data.team_members);
+                window.location.href = './newRisk';
+            })
+        }
+    });
+
+    $('a[role="profile"]').click(function () {
+        alert('waiting for updating');
+    })
 
     $('a[role="viewDetails"]').click(function () {
         let rid = $(this).parent('td').attr('rid');

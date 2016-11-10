@@ -2,14 +2,27 @@
  * Created by puddingtea07 on 11/7/16.
  */
 storage = window.localStorage;
+let user = JSON.parse(storage.getItem("user"));
+let members = JSON.parse(storage.getItem("members"));
 
 function dataRender() {
-    $('h2[data-aria="username"]').text(storage.getItem("username"));
-    $('a[data-aria="username"]').text(storage.getItem("username"));
+    $('h2[data-aria="username"]').text(user.name);
+    $('a[data-aria="username"]').text(user.name);
+
+    let block_memberList = $('ul.memberList');
+    members.forEach(function (member) {
+        let temp = $('<li>').append($('<input>').attr({
+                        type: 'checkbox',
+                        id: member.uid
+                    }), $('<label>').attr({
+                        for: member.uid
+                    }).html(member.name));
+        temp.appendTo(block_memberList);
+    })
+
 }
 
 function addNewEntry() {
-    console.log(1);
 
     let block_step_2 = $('#step-2');
     let currentEntries = parseInt(block_step_2.attr('currentEntries'));
@@ -42,8 +55,19 @@ function addNewEntry() {
 $(document).ready(function () {
     dataRender();
 
-    $('#wizard').smartWizard();
+    $('a[role="newRisk"]').click(function (data) {
+        if (user.level == 0) {
+            alert("You have no access");
+        } else {
+            location.reload();
+        }
+    });
 
+    $('a[role="profile"]').click(function () {
+        alert('waiting for updating');
+    })
+
+    $('#wizard').smartWizard();
     $('.buttonNext').addClass('btn btn-success');
     $('.buttonPrevious').addClass('btn btn-primary');
     $('.buttonFinish').addClass('btn btn-default');
@@ -53,6 +77,11 @@ $(document).ready(function () {
     });
 
 
-    $('#addNewEntry').click(addNewEntry);
+    //$('#addNewEntry').click(addNewEntry);
 
+
+    $('a[role="logout"]').click(function () {
+        storage.clear();
+        window.location.href = './login';
+    });
 })
