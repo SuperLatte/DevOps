@@ -2,6 +2,7 @@ package com.devops.controller;
 
 import java.util.List;
 
+import com.devops.service.RiskService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -19,7 +20,7 @@ import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
 import com.devops.dto.RiskTracingDTO;
 import com.devops.dto.UserDTO;
-import com.devops.service.serviceImpl.RiskServiceImpl;
+
 
 /**
  * @author Shifang
@@ -30,7 +31,7 @@ import com.devops.service.serviceImpl.RiskServiceImpl;
 public class RiskController {
 	
 	@Autowired
-	RiskServiceImpl service;
+	RiskService service;
 	@Autowired
 	HttpServletRequest  request;
 	

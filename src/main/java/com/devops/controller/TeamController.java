@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.devops.service.serviceImpl.TeamServiceImpl;
+import com.devops.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -26,7 +26,7 @@ import com.devops.dto.UserDTO;
 public class TeamController {
 	
 	@Autowired
-	TeamServiceImpl teamService;
+	TeamService teamService;
 	
 	/**
 	 * get all teammates by manager id
