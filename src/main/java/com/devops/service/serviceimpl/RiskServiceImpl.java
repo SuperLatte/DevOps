@@ -221,7 +221,7 @@ public class RiskServiceImpl implements RiskService {
 					String name = userDao.getUser(uid).getName();
 					dto.setTraceUserName(name);
 				} catch (SQLException e) {
-					e.printStackTrace();
+					logger.severe(e.getMessage());
 				}
 			}
 			result.add(dto);
