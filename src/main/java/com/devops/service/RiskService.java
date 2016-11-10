@@ -18,6 +18,11 @@ public interface RiskService {
 	 */
 	public RiskDTO getRiskById(String id);
 
+	/**
+	 * 
+	 * @param uid
+	 * @return
+	 */
 	public List<RiskDTO> getRiskByUserId(String uid);
 
 

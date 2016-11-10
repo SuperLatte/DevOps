@@ -3,11 +3,10 @@
  */
 package com.devops.controller;
 
-import com.devops.dto.RiskDTO;
-import com.devops.service.RiskService;
-import com.devops.service.UserService;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -18,11 +17,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.devops.dto.RiskDTO;
 import com.devops.dto.UserDTO;
+import com.devops.service.RiskService;
+import com.devops.service.UserService;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 //import javax.servlet.http.HttpServletRequest;
 
@@ -39,8 +40,6 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private RiskService riskService;
-//	@Autowired
-//	HttpServletRequest request;
 
 	/**
 	 * user login

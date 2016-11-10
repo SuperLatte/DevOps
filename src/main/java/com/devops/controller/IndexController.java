@@ -24,6 +24,8 @@ public class IndexController {
 	 */
 	public static final String NEW_RISK="newRisk";
 	
+	public static final String RISK_DETAIL="riskDetail";
+	
 	/**
 	 * 
 	 * @return
@@ -61,8 +63,12 @@ public class IndexController {
     }
 
 
+    /**
+     * 
+     * @return
+     */
     @RequestMapping("/riskDetails")
     public String details() {
-        return "riskDetail";
+        return RISK_DETAIL;
     }
 }

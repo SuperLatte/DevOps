@@ -60,7 +60,7 @@ public class RiskServiceImpl implements RiskService {
 				riskDTOs.add(rd);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());
 		}
 
 		return riskDTOs;
