@@ -9,6 +9,7 @@ public class Risk {
     private String tid;
 
     private String name;
+    private String description;
     private int createTime;
     private int updateTime;
 
@@ -61,5 +62,13 @@ public class Risk {
 
     public void setStatus(int status) {
         this.status = status;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -1,4 +1,4 @@
-package com.devops.service.serviceimpl;
+package com.devops.service.serviceImpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;

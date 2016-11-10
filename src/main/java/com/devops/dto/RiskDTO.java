@@ -15,6 +15,7 @@ public class RiskDTO {
     private int createTime;
     private int updateTime;
     private int status;
+	private String description;
     
     private List<RiskTracingDTO> traceUserList = new ArrayList<>();
     
@@ -69,4 +70,11 @@ public class RiskDTO {
 		this.status = status;
 	}
 
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

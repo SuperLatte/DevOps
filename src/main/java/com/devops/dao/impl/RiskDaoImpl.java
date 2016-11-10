@@ -164,12 +164,13 @@ public class RiskDaoImpl implements RiskDao {
         risk.setCreateTime(time);
 
         statement = connection.createStatement();
-        String sql = "insert into risk(tid, name, createtime, updatetime, status) values("
+        String sql = "insert into risk(tid, name, createtime, updatetime, status, description) values("
                 + risk.getTid() + ",'"
                 + risk.getName() + "',"
                 + risk.getCreateTime() + ","
                 + risk.getUpdateTime() + ","
-                + risk.getStatus() + ")";
+                + risk.getStatus() + ",'"
+                + risk.getDescription() + "')";
         statement.execute(sql);
         resultSet = statement.executeQuery("SELECT MAX(rid) from risk");
         if (resultSet.next()) {
@@ -230,7 +231,8 @@ public class RiskDaoImpl implements RiskDao {
                 + "tid=" + risk.getTid() + ","
                 + "name='" + risk.getName() + "',"
                 + "updatetime=" + risk.getUpdateTime() + ","
-                + "status=" + risk.getStatus() + " "
+                + "status=" + risk.getStatus() + ","
+                + "description=" + risk.getDescription() + " "
                 + "where rid=" + risk.getRid();
         boolean result = statement.execute(sql);
         statement.close();
@@ -245,6 +247,7 @@ public class RiskDaoImpl implements RiskDao {
         risk.setCreateTime(resultSet.getInt("createtime"));
         risk.setUpdateTime(resultSet.getInt("updateTime"));
         risk.setStatus(resultSet.getInt("status"));
+        risk.setDescription(resultSet.getString("description"));
         return risk;
     }
 

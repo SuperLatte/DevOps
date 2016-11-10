@@ -19,7 +19,7 @@ import com.devops.dto.RiskDTO;
 import com.devops.dto.RiskRecordDTO;
 import com.devops.dto.RiskTracingDTO;
 import com.devops.dto.UserDTO;
-import com.devops.service.serviceimpl.RiskServiceImpl;
+import com.devops.service.serviceImpl.RiskServiceImpl;
 
 /**
  * @author Shifang
