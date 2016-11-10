@@ -1,5 +1,6 @@
 package com.devops.dto;
 
+import java.util.ArrayList;
 import java.util.List;
 /**
  * 
@@ -15,7 +16,7 @@ public class RiskDTO {
     private int updateTime;
     private int status;
     
-    private List<RiskTracingDTO> traceUserList;
+    private List<RiskTracingDTO> traceUserList = new ArrayList<>();
     
     /**
 	 * 

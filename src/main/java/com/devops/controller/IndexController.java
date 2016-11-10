@@ -60,4 +60,9 @@ public class IndexController {
         return NEW_RISK;
     }
 
+
+    @RequestMapping("/riskDetails")
+    public String details() {
+        return "riskDetail";
+    }
 }

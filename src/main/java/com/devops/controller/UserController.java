@@ -3,6 +3,11 @@
  */
 package com.devops.controller;
 
+import com.devops.dto.RiskDTO;
+import com.devops.service.RiskService;
+import com.devops.service.UserService;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -14,12 +19,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.devops.dto.UserDTO;
-import com.devops.service.serviceimpl.UserServiceImpl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletRequest;
 
 /**
  * 
@@ -31,9 +36,11 @@ import javax.servlet.http.HttpServletRequest;
 public class UserController {
 
 	@Autowired
-	UserServiceImpl userService;
+	private UserService userService;
 	@Autowired
-	HttpServletRequest request;
+	private RiskService riskService;
+//	@Autowired
+//	HttpServletRequest request;
 
 	/**
 	 * user login
@@ -46,13 +53,17 @@ public class UserController {
 	public Map<String, Object> loginAction(@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password) {
 		UserDTO user = userService.login(username, password);
+		List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
+
+
 		Map<String, Object> data = new HashMap<>();
 		data.put("url", "./myProjects");
+		data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
+
 		if (user != null && !StringUtils.isEmpty(user.getName()))
 			data.put("username", user.getName());
 		else
 			data.put("username", null);
-		request.getSession().setAttribute("user", user);
 		return data;
 	}
 

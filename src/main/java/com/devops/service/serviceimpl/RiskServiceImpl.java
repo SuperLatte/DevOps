@@ -51,6 +51,22 @@ public class RiskServiceImpl implements RiskService {
 	}
 
 	@Override
+	public List<RiskDTO> getRiskByUserId(String uid) {
+		List<RiskDTO> riskDTOs = new ArrayList<>();
+		try {
+			List<Risk> risks = riskDao.getRiskByUserID(uid);
+			for (Risk risk: risks) {
+				RiskDTO rd = EntityToDtoUtil.riskToRiskDTO(risk);
+				riskDTOs.add(rd);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return riskDTOs;
+	}
+
+	@Override
 	public List<RiskDTO> getRiskByTeam(String id) {
 		List<Risk> riskList = null;
 		try {
