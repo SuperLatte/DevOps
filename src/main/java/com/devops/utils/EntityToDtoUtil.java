@@ -72,7 +72,13 @@ public class EntityToDtoUtil {
 			return null;
 		RiskRecordDTO dto=new RiskRecordDTO();
 		dto.setRid(riskRecord.getRid());
-		dto.setTraceUserId(riskRecord.getRrid());
+		dto.setRrid(riskRecord.getRrid());
+		dto.setCreateTime(riskRecord.getCreateTime());
+		dto.setContent(riskRecord.getContent());
+		dto.setPossibility(riskRecord.getPossibility());
+		dto.setAffection(riskRecord.getAffection());
+		dto.setTrigger(riskRecord.getTrigger());
+		dto.setTraceUserId(riskRecord.getTraceUserid());
 		return dto;
 	}	
 		

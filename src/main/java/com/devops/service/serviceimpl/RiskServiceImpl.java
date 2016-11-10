@@ -215,6 +215,15 @@ public class RiskServiceImpl implements RiskService {
 		List<RiskRecordDTO> result = new ArrayList<>();
 		for (RiskRecord record : list) {
 			RiskRecordDTO dto = EntityToDtoUtil.riskRecordToDTO(record);
+			String uid = dto.getTraceUserId();
+			if (uid != null) {
+				try {
+					String name = userDao.getUser(uid).getName();
+					dto.setTraceUserName(name);
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 			result.add(dto);
 		}
 

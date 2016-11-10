@@ -81,40 +81,95 @@
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="div_risk_entries" aria-labelledby="a_risk_entries">
                     <div class="container" role="riskEntries">
+                        <!--<table class="table table-striped">-->
+                            <!--<thead>-->
+                            <!--<tr>-->
+                                <!--<th style="width: 5%">#</th>-->
+                                <!--<th style="width: 30%">Entry Name</th>-->
+                                <!--<th>Possibility</th>-->
+                                <!--<th>Importance</th>-->
+                                <!--<th style="width:30%">Trigger/Threshold</th>-->
+                            <!--</tr>-->
+                            <!--</thead>-->
+                            <!--<tbody>-->
+                            <!--<tr>-->
+                                <!--<td>1</td>-->
+                                <!--<td>-->
+                                    <!--<input type="text" class="form-control" value="Entry 1" />-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<select class="form-control">-->
+                                        <!--<option value="2">High</option>-->
+                                        <!--<option value="1">Medium</option>-->
+                                        <!--<option value="0">Low</option>-->
+                                    <!--</select>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<select class="form-control">-->
+                                        <!--<option value="2">High</option>-->
+                                        <!--<option value="1">Medium</option>-->
+                                        <!--<option value="0">Low</option>-->
+                                    <!--</select>-->
+                                <!--</td>-->
+                                <!--<td>-->
+                                    <!--<input type="text" class="form-control" value="Entry 1" />-->
+                                <!--</td>-->
+                            <!--</tr>-->
+                            <!--</tbody>-->
+                        <!--</table>-->
                         <table class="table table-striped">
                             <thead>
                             <tr>
                                 <th style="width: 5%">#</th>
-                                <th style="width: 30%">Entry Name</th>
+                                <th style="width: 30%">Content</th>
                                 <th>Possibility</th>
                                 <th>Importance</th>
-                                <th style="width:30%">Trigger/Threshold</th>
+                                <th>Trigger/Threshold</th>
+                                <th>Tracer name</th>
+                                <th>Time</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="riskRecordsTable">
                             <tr>
                                 <td>1</td>
+                                <td>Entry 1</td>
+                                <td>High</td>
+                                <td>High</td>
+                                <td>Entry 1</td>
+                                <td>Qiang</td>
+                                <td>2016.11.10</td>
+                            </tr>
+                            </tbody>
+                            <tbody>
+                            <form>
+                            <tr>
+                                <td></td>
                                 <td>
-                                    <input type="text" class="form-control" value="Entry 1" />
+                                    <input type="text" class="form-control" name="content" value="New record" />
                                 </td>
                                 <td>
-                                    <select class="form-control">
-                                        <option value="2">High</option>
-                                        <option value="1">Medium</option>
-                                        <option value="0">Low</option>
+                                    <select class="form-control" name="possibility">
+                                        <option value="3">High</option>
+                                        <option value="2">Medium</option>
+                                        <option value="1">Low</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <select class="form-control">
-                                        <option value="2">High</option>
-                                        <option value="1">Medium</option>
-                                        <option value="0">Low</option>
+                                    <select class="form-control" name="affection">
+                                        <option value="3">High</option>
+                                        <option value="2">Medium</option>
+                                        <option value="1">Low</option>
                                     </select>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" value="Entry 1" />
+                                    <input type="text" class="form-control" name="trigger" value="" />
+                                </td>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-success pull-right" id="addRecord">Add record</button>
                                 </td>
                             </tr>
+                            </form>
                             </tbody>
                         </table>
                     </div>
@@ -145,10 +200,10 @@
         </div>
     </div>
 
-    <div class="container">
-        <hr />
-        <button type="button" class="btn btn-success pull-right">Save</button>
-    </div>
+    <!--<div class="container">-->
+        <!--<hr />-->
+        <!--<button type="button" class="btn btn-success pull-right">Save</button>-->
+    <!--</div>-->
 
 
     <script src="./js/dist/jquery.min.js"></script>
