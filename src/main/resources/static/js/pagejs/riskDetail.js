@@ -93,7 +93,10 @@ function tranTime(timestamp) {
     var unixTimestamp = new Date(timestamp * 1000);
     var time = unixTimestamp.getFullYear() + '.'
             + appendZero(unixTimestamp.getMonth()+1) + '.'
-            + appendZero(unixTimestamp.getDate());
+            + appendZero(unixTimestamp.getDate()) + ' '
+            + appendZero(unixTimestamp.getHours()) + ':'
+            + appendZero(unixTimestamp.getMinutes()) + ':'
+            + appendZero(unixTimestamp.getSeconds());
     return time;
 }
 
