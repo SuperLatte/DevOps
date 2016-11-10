@@ -162,6 +162,7 @@ public class RiskDaoImpl implements RiskDao {
         int time = TimeGetter.getCurrentTime();
         risk.setUpdateTime(time);
         risk.setCreateTime(time);
+        risk.setStatus(1);
 
         statement = connection.createStatement();
         String sql = "insert into risk(tid, name, createtime, updatetime, status, description) values("
