@@ -70,5 +70,10 @@ $(document).ready(function () {
         $.post('./viewDetails', {rid: rid}, function (data) {
             window.location.href = data.url;
         })
-    })
+    });
+
+    $('a[role="logout"]').click(function () {
+        storage.clear();
+        window.location.href = './login';
+    });
 });
