@@ -27,7 +27,7 @@ public class TeamServiceImpl implements TeamService{
 	@Autowired
 	TeamDao teamDao;
 	
-	Logger logger=Logger.getLogger("com.devops.service.serviceImpl.TeamServiceImpl");
+	Logger logger=Logger.getLogger("com.devops.serviceimpl.serviceimpl.TeamServiceImpl");
 	
 	@Override
 	public List<UserDTO> getAllUserByManagrId(String mid) { 

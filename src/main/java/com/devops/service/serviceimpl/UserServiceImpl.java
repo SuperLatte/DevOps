@@ -1,4 +1,4 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.logging.Logger;
@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserDaoImpl userDao;
 	
-	Logger logger=Logger.getLogger("com.devops.service.serviceImpl.UserServiceImpl");
+	Logger logger=Logger.getLogger("com.devops.serviceimpl.serviceimpl.UserServiceImpl");
 	
 	@Override
 	public UserDTO login(String username, String password){

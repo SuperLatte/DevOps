@@ -1,4 +1,4 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,7 +34,7 @@ public class RiskServiceImpl implements RiskService {
 	@Autowired
 	UserDao userDao;
 
-	Logger logger = Logger.getLogger("com.devops.service.serviceImpl.RiskServiceImpl");
+	Logger logger = Logger.getLogger("com.devops.serviceimpl.serviceimpl.RiskServiceImpl");
 
 	@Override
 	public RiskDTO getRiskById(String id) {
