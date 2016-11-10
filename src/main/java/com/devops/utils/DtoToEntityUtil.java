@@ -35,6 +35,7 @@ public class DtoToEntityUtil {
 		risk.setCreateTime(dto.getCreateTime());
 		risk.setUpdateTime(dto.getUpdateTime());
 		risk.setStatus(dto.getStatus());
+		risk.setDescription(dto.getDescription());
 		return risk;
 	}
 	/**
