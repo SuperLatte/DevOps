@@ -33,30 +33,32 @@ function dataRender() {
             status.append($('<button>').attr({
                 type: 'button',
                 class: 'btn btn-info btn-xs'
-            }).html('In progress'))
+            }).prop('disabled', true).html('In progress'));
         } else {
             status.append($('<button>').attr({
                 type: 'button',
                 class: 'btn btn-success btn-xs'
-            }).html('Resolved'))
+            }).prop('disabled', true).html('Resolved'));
         }
         let operations = $('<td>').attr('rid', risk.rid).append($('<a>').attr({
             href: "javascript: void 0",
             class: "btn btn-primary btn-xs",
             target: "_blank",
             role: "viewDetails"
-        }).html('<i class="fa fa-folder"></i> View'), $('<a>').attr({
-            href: "javascript: void 0",
+        }).html('<i class="fa fa-folder"></i> View'), $('<button>').attr({
+            type: "button",
             class: "btn btn-success btn-xs",
             role: "mar"
-        }).html('<i class="fa fa-pencil"></i> Marked As Resolved'), $('<a>').attr({
-            href: "javascript: void 0",
+        }).prop('disabled', (user.level == 0 || risk.status == 0)? true : false).html('<i class="fa fa-pencil"></i> Marked As Resolved'), $('<button>').attr({
+            type: "button",
             class: "btn btn-danger btn-xs",
             role: "delete"
-        }).html('<i class="fa fa-trash-o"></i> Delete'));
+        }).prop('disabled', (user.level == 0)? true : false).html('<i class="fa fa-trash-o"></i> Delete'));
 
         tr.append(rid, brief_depiction, tracingMembers, status, operations);
         tr.appendTo($('tbody'));
+
+
     })
 
 }
@@ -76,13 +78,13 @@ $(document).ready(function () {
         })
     });
 
-    $('a[role="mar"]').click(function () {
+    $('button[role="mar"]').click(function () {
         let rid = $(this).parent('td').attr('rid');
         $.post('./markAsResolved', {rid: rid}, function (data) {
             window.location.href = data.url;
         })
     });
-    $('a[role="delete"]').click(function () {
+    $('button[role="delete"]').click(function () {
         let rid = $(this).parent('td').attr('rid');
         $.post('./markAsResolved', {rid: rid}, function (data) {
             window.location.href = data.url;
