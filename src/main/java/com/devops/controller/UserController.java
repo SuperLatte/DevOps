@@ -25,8 +25,6 @@ import com.devops.service.UserService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-//import javax.servlet.http.HttpServletRequest;
-
 /**
  * 
  * @author lujxu
