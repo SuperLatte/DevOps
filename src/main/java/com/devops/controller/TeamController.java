@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.devops.service.TeamService;
+import net.sf.json.JSONArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.stereotype.Controller;
@@ -51,8 +52,9 @@ public class TeamController {
 	@ResponseBody
 	public Map<String,Object> getTeamByManagerId(@PathVariable("mid") String mid){
 		Map<String, Object> data = new HashMap<>();
-		TeamDTO team=teamService.getTeamByManagerId(mid);
-		data.put("team", team);
+
+		List<UserDTO> userDTOList = teamService.getAllUserByManagrId(mid);
+		data.put("team_members", JSONArray.fromObject(userDTOList).toString());
 		return data;
 	}
 	

@@ -75,7 +75,10 @@ $(document).ready(function () {
         if (user.level == 0) {
             alert("You have no access");
         } else {
-            window.location.href = './newRisk';
+            $.get('/teamByMid/' + user.uid, {uid: user.uid}, function (data) {
+                storage.setItem("members", data.team_members);
+                window.location.href = './newRisk';
+            })
         }
     });
 

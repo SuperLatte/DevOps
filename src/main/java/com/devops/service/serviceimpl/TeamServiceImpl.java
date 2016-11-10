@@ -1,14 +1,14 @@
-package com.devops.service.serviceImpl;
+package com.devops.service.serviceimpl;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import com.devops.dao.TeamDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.devops.dao.impl.TeamDaoImpl;
 import com.devops.dto.TeamDTO;
 import com.devops.dto.UserDTO;
 import com.devops.entity.Team;
@@ -25,7 +25,7 @@ import com.devops.utils.EntityToDtoUtil;
 public class TeamServiceImpl implements TeamService{
 
 	@Autowired
-	TeamDaoImpl teamDao;
+	TeamDao teamDao;
 	
 	Logger logger=Logger.getLogger("com.devops.service.serviceImpl.TeamServiceImpl");
 	

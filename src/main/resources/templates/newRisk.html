@@ -47,10 +47,10 @@
                                 <a href="./myProjects"><i class="fa fa-tasks"></i> My Projects</a>
                             </li>
                             <li class="current-page">
-                                <a href="./newRisk"><i class="fa fa-edit"></i> New Risk</a>
+                                <a href="javascript: void 0" role="newRisk"><i class="fa fa-edit"></i> New Risk</a>
                             </li>
                             <li>
-                                <a href="./profile"><i class="fa fa-user"></i> Profile</a>
+                                <a href="javascript: void 0" role="profile"><i class="fa fa-user"></i> Profile</a>
                             </li>
                         </ul>
                     </div>
@@ -138,24 +138,24 @@
                                         </form>
                                     </div>
 
-                                    <div id="step-2" currentEntries="1">
-                                        <div class="col-md-11 col-sm-11" style="margin-bottom: 5px">
-                                            <div class="col-md-3 col-sm-3">
-                                                <a href="javascript: void 0" id="addNewEntry" class="btn btn-success">Add new entry</a>
-                                            </div>
-                                        </div>
-                                        <div class="riskEntry" number="0">
+                                    <div id="step-2" style="margin-bottom: 5px;">
+                                        <!--<div class="col-md-11 col-sm-11" style="margin-bottom: 5px">-->
+                                            <!--<div class="col-md-3 col-sm-3">-->
+                                                <!--<a href="javascript: void 0" id="addNewEntry" class="btn btn-success">Add new entry</a>-->
+                                            <!--</div>-->
+                                        <!--</div>-->
+                                        <div class="riskEntry">
                                             <div class="col-md-11 col-sm-11">
                                                 <div class="col-md-3 col-sm-3">
                                                     <div class="form-group">
-                                                        <label for="entryName_0">Entry Name</label>
-                                                        <input class="form-control" type="text" id="entryName_0" />
+                                                        <label for="content">Content</label>
+                                                        <input class="form-control" type="text" id="content" />
                                                     </div>
                                                 </div>
                                                 <div class="col-md-3 col-sm-3">
                                                     <div class="form-group">
-                                                        <label for="possibility_0">Possibility</label>
-                                                        <select class="form-control" id="possibility_0">
+                                                        <label for="possibility">Possibility</label>
+                                                        <select class="form-control" id="possibility">
                                                             <option value="2">High</option>
                                                             <option value="1">Medium</option>
                                                             <option value="0">Low</option>
@@ -164,8 +164,8 @@
                                                 </div>
                                                 <div class="col-md-3 col-sm-3">
                                                     <div class="form-group">
-                                                        <label for="importance_0">Importance</label>
-                                                        <select class="form-control" id="importance_0">
+                                                        <label for="importance">Importance</label>
+                                                        <select class="form-control" id="importance">
                                                             <option value="2">High</option>
                                                             <option value="1">Medium</option>
                                                             <option value="0">Low</option>
@@ -174,8 +174,8 @@
                                                 </div>
                                                 <div class="col-md-3 col-sm-3">
                                                     <div class="form-group">
-                                                        <label for="trigger_0">Trigger/Threshold</label>
-                                                        <input class="form-control" type="text" id="trigger_0" />
+                                                        <label for="trigger">Trigger/Threshold</label>
+                                                        <input class="form-control" type="text" id="trigger" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -184,15 +184,14 @@
 
                                     <div id="step-3">
                                         <ul class="memberList">
-                                            <li>
-                                                <input type="checkbox" id="c1"/>
-                                                <label for="c1">Alex</label>
-                                            </li>
-                                            <li>
-                                                <input type="checkbox" id="c2"/>
-                                                <label for="c2">Lucas</label>
-                                            </li>
-
+                                            <!--<li>-->
+                                                <!--<input type="checkbox" id="c1"/>-->
+                                                <!--<label for="c1">Alex</label>-->
+                                            <!--</li>-->
+                                            <!--<li>-->
+                                                <!--<input type="checkbox" id="c2"/>-->
+                                                <!--<label for="c2">Lucas</label>-->
+                                            <!--</li>-->
                                         </ul>
                                     </div>
 
