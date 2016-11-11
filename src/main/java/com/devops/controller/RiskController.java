@@ -213,9 +213,6 @@ public class RiskController {
 		riskRecord.setTraceUserId(user.getUid());
 		
 		RiskRecordDTO dto=service.addRiskRecord(riskRecord);
-		RiskDTO risk=service.getRiskById(dto.getRid());
-		risk.setDescription(dto.get);
-		
 		
 		if(dto!=null){
 			response.setData(dto);
