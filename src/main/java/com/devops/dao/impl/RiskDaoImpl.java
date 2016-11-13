@@ -4,6 +4,7 @@ import com.devops.dao.RiskDao;
 import com.devops.entity.Risk;
 import com.devops.entity.RiskRecord;
 import com.devops.entity.RiskTracing;
+import com.devops.utils.ResultSetTranUtil;
 import com.devops.utils.TimeGetter;
 
 import java.sql.*;
@@ -33,18 +34,18 @@ public class RiskDaoImpl implements RiskDao {
      * @throws SQLException
      */
     public RiskDaoImpl() throws SQLException {
-        //do nothing because of autowired
+        //do nothing because of autowiring
     }
 
     @Override
     public Risk getRiskByRiskID(String rid) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from risk where rid=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM risk WHERE rid=?");
         preparedStatement.setInt(1, Integer.parseInt(rid));
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            Risk risk = tranRisk(resultSet);
+            Risk risk = ResultSetTranUtil.tranRisk(resultSet);
             preparedStatement.close();
             return risk;
         }
@@ -54,13 +55,13 @@ public class RiskDaoImpl implements RiskDao {
     @Override
     public List<Risk> getRiskByTeamID(String tid) throws SQLException {
 
-        preparedStatement = connection.prepareStatement("select * from risk where tid=?");
+        preparedStatement = connection.prepareStatement("SELECT * FROM risk WHERE tid=?");
         preparedStatement.setInt(1, Integer.parseInt(tid));
         resultSet = preparedStatement.executeQuery();
 
         List<Risk> risks = new ArrayList<>();
         while (resultSet.next()) {
-            risks.add(tranRisk(resultSet));
+            risks.add(ResultSetTranUtil.tranRisk(resultSet));
         }
         preparedStatement.close();
         return risks;
@@ -70,7 +71,7 @@ public class RiskDaoImpl implements RiskDao {
     public List<Risk> getRiskByUserID(String uid) throws SQLException {
         List<Risk> risks = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("select level from user where uid=?");
+        preparedStatement = connection.prepareStatement("SELECT level FROM user WHERE uid=?");
         preparedStatement.setInt(1, Integer.parseInt(uid));
         resultSet = preparedStatement.executeQuery();
 
@@ -83,7 +84,7 @@ public class RiskDaoImpl implements RiskDao {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                risks.add(tranRisk(resultSet));
+                risks.add(ResultSetTranUtil.tranRisk(resultSet));
             }
         } else if (level == 1) {
 
@@ -91,7 +92,7 @@ public class RiskDaoImpl implements RiskDao {
             preparedStatement.setInt(1, Integer.parseInt(uid));
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                risks.add(tranRisk(resultSet));
+                risks.add(ResultSetTranUtil.tranRisk(resultSet));
             }
         }
         preparedStatement.close();
@@ -107,7 +108,7 @@ public class RiskDaoImpl implements RiskDao {
 
         List<RiskRecord> riskRecords = new ArrayList<>();
         while (resultSet.next()) {
-            riskRecords.add(tranRiskRecord(resultSet));
+            riskRecords.add(ResultSetTranUtil.tranRiskRecord(resultSet));
         }
         preparedStatement.close();
         return riskRecords;
@@ -121,7 +122,7 @@ public class RiskDaoImpl implements RiskDao {
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            RiskRecord record = tranRiskRecord(resultSet);
+            RiskRecord record = ResultSetTranUtil.tranRiskRecord(resultSet);
             preparedStatement.close();
             return record;
         }
@@ -238,31 +239,6 @@ public class RiskDaoImpl implements RiskDao {
         boolean result = statement.execute(sql);
         statement.close();
         return result;
-    }
-
-    private Risk tranRisk(ResultSet resultSet) throws SQLException {
-        Risk risk = new Risk();
-        risk.setRid(resultSet.getString("rid"));
-        risk.setTid(resultSet.getString("tid"));
-        risk.setName(resultSet.getString("name"));
-        risk.setCreateTime(resultSet.getInt("createtime"));
-        risk.setUpdateTime(resultSet.getInt("updateTime"));
-        risk.setStatus(resultSet.getInt("status"));
-        risk.setDescription(resultSet.getString("description"));
-        return risk;
-    }
-
-    private RiskRecord tranRiskRecord(ResultSet resultSet) throws SQLException {
-        RiskRecord riskRecord = new RiskRecord();
-        riskRecord.setRrid(resultSet.getString("rrid"));
-        riskRecord.setRid(resultSet.getString("rid"));
-        riskRecord.setCreateTime(resultSet.getInt("createtime"));
-        riskRecord.setContent(resultSet.getString("content"));
-        riskRecord.setPossibility(resultSet.getInt("possibility"));
-        riskRecord.setAffection(resultSet.getInt("affection"));
-        riskRecord.setTrigger(resultSet.getString("trigger"));
-        riskRecord.setTraceUserid(resultSet.getString("trace_userid"));
-        return riskRecord;
     }
 
 }

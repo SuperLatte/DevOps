@@ -2,6 +2,7 @@ package com.devops.dao.impl;
 
 import java.sql.*;
 
+import com.devops.utils.ResultSetTranUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public class UserDaoImpl implements UserDao{
      * @throws SQLException
      */
     public UserDaoImpl() throws SQLException {
-        //do nothing because of autowired
+        //do nothing because of autowiring
     }
 
     @Override
@@ -36,7 +37,7 @@ public class UserDaoImpl implements UserDao{
 
         resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            User user = tranUser(resultSet);
+            User user = ResultSetTranUtil.tranUser(resultSet);
             preparedStatement.close();
             return user;
         }
@@ -51,21 +52,11 @@ public class UserDaoImpl implements UserDao{
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            User user = tranUser(resultSet);
+            User user = ResultSetTranUtil.tranUser(resultSet);
             preparedStatement.close();
             return user;
         }
         return null;
-    }
-
-    private User tranUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setUid(resultSet.getString("uid"));
-        user.setName(resultSet.getString("name"));
-        user.setUsername(resultSet.getString("username"));
-        user.setPassword(resultSet.getString("password"));
-        user.setLevel(resultSet.getInt("level"));
-        return user;
     }
 
 }

@@ -8,6 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.devops.utils.ResultSetTranUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +28,7 @@ public class TeamDaoImpl implements TeamDao{
      * @throws SQLException
      */
     public TeamDaoImpl() throws SQLException {
-        //do nothing because of autowired
+        //do nothing because of autowiring
     }
 
     @Override
@@ -38,7 +39,7 @@ public class TeamDaoImpl implements TeamDao{
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            Team team = tranTeam(resultSet);
+            Team team = ResultSetTranUtil.tranTeam(resultSet);
             preparedStatement.close();
             return team;
         }
@@ -53,7 +54,7 @@ public class TeamDaoImpl implements TeamDao{
         resultSet = preparedStatement.executeQuery();
 
         if (resultSet.next()) {
-            Team team = tranTeam(resultSet);
+            Team team = ResultSetTranUtil.tranTeam(resultSet);
             preparedStatement.close();
             return team;
         }
@@ -69,27 +70,9 @@ public class TeamDaoImpl implements TeamDao{
 
         List<User> user = new ArrayList<>();
         while (resultSet.next()) {
-            user.add(tranUser(resultSet));
+            user.add(ResultSetTranUtil.tranUser(resultSet));
         }
         preparedStatement.close();
-        return user;
-    }
-
-    private Team tranTeam(ResultSet resultSet) throws SQLException {
-        Team team = new Team();
-        team.setTid(resultSet.getString("tid"));
-        team.setName(resultSet.getString("name"));
-        team.setManagerId(resultSet.getString("manager_id"));
-        return team;
-    }
-
-    private User tranUser(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setUid(resultSet.getString("uid"));
-        user.setName(resultSet.getString("name"));
-        user.setUsername(resultSet.getString("username"));
-        user.setPassword(resultSet.getString("password"));
-        user.setLevel(resultSet.getInt("level"));
         return user;
     }
 
