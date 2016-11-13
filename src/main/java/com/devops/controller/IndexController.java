@@ -1,7 +1,12 @@
 package com.devops.controller;
 
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by super on 2016/11/6.
@@ -9,8 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class IndexController {
 
-	/**hello page**/
-	public static final String HELLO="hello";
+    @Autowired
+    HttpServletRequest request;
+
 	/**
 	 * login page
 	 */
@@ -23,9 +29,10 @@ public class IndexController {
 	 * newRisk
 	 */
 	public static final String NEW_RISK="newRisk";
-	
-	public static final String RISK_DETAIL="riskDetail";
-	
+
+    public static final String RISK_DETAIL="riskDetail";
+
+
 	/**
 	 * 
 	 * @return
@@ -63,12 +70,18 @@ public class IndexController {
     }
 
 
-    /**
-     * 
-     * @return
-     */
-    @RequestMapping("/riskDetails")
-    public String details() {
+    @RequestMapping("/riskDetail")
+    public String riskDetail() {
         return RISK_DETAIL;
+    }
+
+
+
+    @RequestMapping("/logout")
+    public Map<String, Object> logout() {
+        Map<String, Object> data = new HashMap<>();
+        request.getSession().invalidate();
+        data.put("url", "./login");
+        return data;
     }
 }

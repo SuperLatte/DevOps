@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.devops.dto.TeamDTO;
+import com.devops.service.TeamService;
+import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.util.StringUtils;
@@ -38,6 +41,11 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private RiskService riskService;
+	@Autowired
+	private TeamService teamService;
+
+	@Autowired
+	HttpServletRequest request;
 
 	/**
 	 * user login
@@ -52,13 +60,23 @@ public class UserController {
 		UserDTO user = userService.login(username, password);
 		Map<String, Object> data = new HashMap<>();
 
-
 		if (user != null && !StringUtils.isEmpty(user.getName())){
+			request.getSession().setAttribute("user", user);
+
+			String tid = "0";
+
+			if (user.getLevel() == 1) {
+				tid = teamService.getTeamByManagerId(user.getUid()).getTid();
+			}
+			request.getSession().setAttribute("tid", tid);
+
 			data.put("loginResponse", "SUCCESS");
-			List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
-			data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
-			data.put("user", JSONObject.fromObject(user).toString());
 			data.put("url", "./myProjects");
+			data.put("user", JSONObject.fromObject(user).toString());
+//			List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
+//			data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
+//			data.put("ps", password);
+//			data.put("tid", tid);
 		} else {
 			data.put("loginResponse", "FAILED");
 		}

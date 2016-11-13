@@ -1,15 +1,14 @@
 /**
  * Created by puddingtea07 on 11/6/16.
  */
-storage = window.localStorage;
-let user = JSON.parse(storage.getItem("user"));
-let riskList = JSON.parse(storage.getItem("riskList"));
 
-function dataRender() {
+function dataRender(riskList) {
+    let user = JSON.parse(window.localStorage.getItem('user'));
+
     $('h2[data-aria="username"]').text(user.name);
-
-
     $('a[data-aria="username"]').text(user.name);
+
+
     riskList.forEach(function (risk) {
         let tr = $('<tr>');
         let rid = $('<td>').text(risk.rid)
@@ -19,11 +18,11 @@ function dataRender() {
         let tm = risk.traceUserList;
         let litm = $('<ul>').addClass('list-inline');
         tm.forEach(function (member) {
-            $('<li>').append($('<a>').append($('<image>').attr({
+            litm.append($('<li>').append($('<a>').append($('<image>').attr({
                 src: "./images/user.png",
-                title: member.username,
+                title: member.name,
                 class: "avatar"
-            }))).appendTo(litm);
+            }))));
         });
 
         let tracingMembers = $('<td>').append(litm);
@@ -45,7 +44,10 @@ function dataRender() {
             class: "btn btn-primary btn-xs",
             target: "_blank",
             role: "viewDetails"
-        }).html('<i class="fa fa-folder"></i> View'), $('<button>').attr({
+        }).html('<i class="fa fa-folder"></i> View').click(function () {
+            window.localStorage.setItem("rid", $(this).parent('td').attr('rid'));
+            window.open('./riskDetail') ;
+        }), $('<button>').attr({
             type: "button",
             class: "btn btn-success btn-xs",
             role: "mar"
@@ -68,17 +70,30 @@ function dataRender() {
 
 
 $(document).ready(function () {
+    let user = JSON.parse(window.localStorage.getItem('user'));
 
-    dataRender();
+
+    $.post('./myrisk', {}, function (data) {
+        //riskList = JSON.parse(data.riskList);
+        if (data.success == true) {
+            dataRender(data.data);
+        } else {
+            alert("There is something wrong in the page.")
+        }
+
+    });
+
+
 
     $('a[role="newRisk"]').click(function () {
         if (user.level == 0) {
             alert("You have no access");
         } else {
-            $.get('/teamByMid/' + user.uid, {uid: user.uid}, function (data) {
-                storage.setItem("members", data.team_members);
-                window.location.href = './newRisk';
-            })
+            window.location.href = './newRisk';
+            //$.get('/teamByMid/' + user.uid, {uid: user.uid}, function (data) {
+            //    storage.setItem("members", data.team_members);
+            //    window.location.href = './newRisk';
+            //})
         }
     });
 
@@ -99,6 +114,7 @@ $(document).ready(function () {
             window.location.href = data.url;
         })
     });
+
     $('button[role="delete"]').click(function () {
         let rid = $(this).parent('td').attr('rid');
         $.post('./markAsResolved', {rid: rid}, function (data) {
@@ -108,7 +124,10 @@ $(document).ready(function () {
 
 
     $('a[role="logout"]').click(function () {
-        storage.clear();
-        window.location.href = './login';
+        window.localStorage.clear();
+        $.post('./logout', {}, function (data) {
+            window.location.href = data.url;
+        });
+
     });
 });

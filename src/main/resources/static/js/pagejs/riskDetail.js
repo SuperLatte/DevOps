@@ -6,7 +6,7 @@ $(document).ready(function () {
         checkboxClass: 'icheckbox_flat-green'
     });
 
-    var riskId = 18;
+    var riskId = window.localStorage.getItem("rid");
 
     refreshRecordtable(riskId);
 
@@ -31,7 +31,7 @@ $(document).ready(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify(req_data),
             success: function (data) {
-                if (data.loginResponse == 'SUCCESS') {
+                if (data.success == true) {
                     refreshRecordtable(riskId);
                 } else {
                     console.log('Login failed');
