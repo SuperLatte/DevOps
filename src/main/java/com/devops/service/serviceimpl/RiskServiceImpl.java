@@ -109,6 +109,7 @@ public class RiskServiceImpl implements RiskService {
 		List<RiskTracingDTO> userList = riskDTO.getTraceUserList();
 
 		for (RiskTracingDTO tracingDTO : userList) {
+			tracingDTO.setRid(ridValue);
 			RiskTracing tracing = DtoToEntityUtil.riskTracingToEntity(tracingDTO);
 			try {
 				riskDao.addTracing(tracing);

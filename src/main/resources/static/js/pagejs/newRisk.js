@@ -83,7 +83,7 @@ function addNewRisk (tid) {
         tid: window.localStorage.getItem("tid"),
         name: proj_name,
         description: risk_depiction,
-        tracingUsers: tracing_members
+        traceUserList: tracing_members
     };
 
     $.ajax({
