@@ -30,8 +30,10 @@ public class IndexController {
 	 */
 	public static final String NEW_RISK="newRisk";
 
+    /**
+     * risk detail
+     */
     public static final String RISK_DETAIL="riskDetail";
-
 
 	/**
 	 * 
@@ -69,14 +71,20 @@ public class IndexController {
         return NEW_RISK;
     }
 
-
+    /**
+     *
+     * @return
+     */
     @RequestMapping("/riskDetail")
     public String riskDetail() {
         return RISK_DETAIL;
     }
 
 
-
+    /**
+     *
+     * @return
+     */
     @RequestMapping("/logout")
     public Map<String, Object> logout() {
         Map<String, Object> data = new HashMap<>();

@@ -4,10 +4,8 @@
 package com.devops.controller;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.devops.dto.TeamDTO;
 import com.devops.service.TeamService;
 import org.apache.catalina.servlet4preview.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,12 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.devops.dto.RiskDTO;
 import com.devops.dto.UserDTO;
 import com.devops.service.RiskService;
 import com.devops.service.UserService;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -73,10 +69,6 @@ public class UserController {
 			data.put("loginResponse", "SUCCESS");
 			data.put("url", "./myProjects");
 			data.put("user", JSONObject.fromObject(user).toString());
-//			List<RiskDTO> riskDTOList = riskService.getRiskByUser(user.getUid());
-//			data.put("riskList", JSONArray.fromObject(riskDTOList).toString());
-//			data.put("ps", password);
-//			data.put("tid", tid);
 		} else {
 			data.put("loginResponse", "FAILED");
 		}
