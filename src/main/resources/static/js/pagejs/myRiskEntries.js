@@ -18,11 +18,12 @@ function dataRender(riskList) {
         let tm = risk.traceUserList;
         let litm = $('<ul>').addClass('list-inline');
         tm.forEach(function (member) {
-            litm.append($('<li>').append($('<a>').append($('<image>').attr({
+            let block = $('<li>').append($('<a>').append($('<img>').attr({
                 src: "./images/user.png",
                 title: member.name,
                 class: "avatar"
-            }))));
+            })));
+            block.appendTo(litm);
         });
 
         let tracingMembers = $('<td>').append(litm);
@@ -42,7 +43,6 @@ function dataRender(riskList) {
         let operations = $('<td>').attr('rid', risk.rid).append($('<a>').attr({
             href: "javascript: void 0",
             class: "btn btn-primary btn-xs",
-            target: "_blank",
             role: "viewDetails"
         }).html('<i class="fa fa-folder"></i> View').click(function () {
             window.localStorage.setItem("rid", $(this).parent('td').attr('rid'));
@@ -51,11 +51,18 @@ function dataRender(riskList) {
             type: "button",
             class: "btn btn-success btn-xs",
             role: "mar"
-        }).prop('disabled', (user.level == 0 || risk.status == 0)? true : false).html('<i class="fa fa-pencil"></i> Marked As Resolved'), $('<button>').attr({
-            type: "button",
-            class: "btn btn-danger btn-xs",
-            role: "delete"
-        }).prop('disabled', (user.level == 0)? true : false).html('<i class="fa fa-trash-o"></i> Delete'));
+        }).prop('disabled', (user.level == 0 || risk.status == 0)? true : false).html('<i class="fa fa-pencil"></i> Marked As Resolved'));
+
+        //$('<button>').attr({
+        //    type: "button",
+        //    class: "btn btn-danger btn-xs",
+        //    role: "delete"
+        //}).prop('disabled', (user.level == 0)? true : false).html('<i class="fa fa-trash-o"></i> Delete').click(function () {
+        //    let rid = $(this).parent('td').attr('rid');
+        //    $.post('./risk/delete', {rid: $(this).parent('td').attr('rid')}, function (data) {
+        //        location.reload();
+        //    })
+        //})
 
         tr.append(rid, brief_depiction, tracingMembers, status, operations);
         tr.appendTo($('tbody'));
