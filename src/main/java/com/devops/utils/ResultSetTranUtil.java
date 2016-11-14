@@ -13,6 +13,16 @@ import java.sql.SQLException;
  */
 public class ResultSetTranUtil {
 
+    private ResultSetTranUtil() {
+
+    }
+
+    /**
+     *
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     public static Risk tranRisk(ResultSet resultSet) throws SQLException {
         Risk risk = new Risk();
         risk.setRid(resultSet.getString("rid"));
@@ -25,6 +35,12 @@ public class ResultSetTranUtil {
         return risk;
     }
 
+    /**
+     *
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     public static RiskRecord tranRiskRecord(ResultSet resultSet) throws SQLException {
         RiskRecord riskRecord = new RiskRecord();
         riskRecord.setRrid(resultSet.getString("rrid"));
@@ -38,6 +54,12 @@ public class ResultSetTranUtil {
         return riskRecord;
     }
 
+    /**
+     *
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     public static User tranUser(ResultSet resultSet) throws SQLException {
         User user = new User();
         user.setUid(resultSet.getString("uid"));
@@ -48,6 +70,12 @@ public class ResultSetTranUtil {
         return user;
     }
 
+    /**
+     * 
+     * @param resultSet
+     * @return
+     * @throws SQLException
+     */
     public static Team tranTeam(ResultSet resultSet) throws SQLException {
         Team team = new Team();
         team.setTid(resultSet.getString("tid"));
