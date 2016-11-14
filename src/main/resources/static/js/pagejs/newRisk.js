@@ -1,11 +1,17 @@
 /**
  * Created by puddingtea07 on 11/7/16.
  */
-storage = window.localStorage;
-let user = JSON.parse(storage.getItem("user"));
-let members = JSON.parse(storage.getItem("members"));
 
-function dataRender() {
+//let members = JSON.parse(storage.getItem("members"));
+
+function dataRender(members) {
+    let user = JSON.parse(window.localStorage.getItem("user"));
+
+    $('#wizard').smartWizard();
+    $('.buttonNext').addClass('btn btn-success');
+    $('.buttonPrevious').addClass('btn btn-primary');
+    $('.buttonFinish').addClass('btn btn-default').click(addNewRisk);
+
     $('h2[data-aria="username"]').text(user.name);
     $('a[data-aria="username"]').text(user.name);
 
@@ -19,6 +25,10 @@ function dataRender() {
                     }).html(member.name));
         temp.appendTo(block_memberList);
     })
+
+    $('input[type="checkbox"]').iCheck({
+        checkboxClass: 'icheckbox_flat-green'
+    });
 
 }
 
@@ -52,8 +62,75 @@ function addNewEntry() {
     $('#entryName_' + currentEntries).focus();
 }
 
+function addNewRisk (tid) {
+
+    let proj_name = $('#project-name').val();
+    let risk_depiction = $('#risk-description').val();
+
+    let content = $('#content').val();
+    let possibility = parseInt($('#possibility').val());
+    let importance = parseInt($('#importance').val());
+    let trigger = $('#trigger').val();
+
+    let tracing_members = [];
+    $('div.checked input').each(function () {
+        tracing_members.push({
+            uid: $(this).attr('id')
+        });
+    })
+
+    let obj_risk = {
+        tid: window.localStorage.getItem("tid"),
+        name: proj_name,
+        description: risk_depiction,
+        tracingUsers: tracing_members
+    };
+
+    $.ajax({
+        type: 'POST',
+        url: "./risk/create",
+        contentType: "application/json; charset=utf-8",
+        data: JSON.stringify(obj_risk),
+        success: function (data) {
+            if (data.success == true) {
+                let obj_record = {
+                    rid: data.data.rid,
+                    content: content,
+                    possibility: possibility,
+                    affection: importance,
+                    trigger: trigger
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "./risk/record/create",
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify(obj_record),
+                    success: function (data) {
+                        if (data.success == true) {
+                            window.location.href = './myProjects';
+                        } else {
+                            console.log(data.success);
+                        }
+                    }
+                });
+            } else {
+                console.log(data.success);
+            }
+        }
+    })
+
+
+
+}
+
 $(document).ready(function () {
-    dataRender();
+    let user = JSON.parse(window.localStorage.getItem("user"));
+
+    $.get('./teamByMid/' + user.uid, {}, function (data) {
+        let teammates = JSON.parse(data.teammates);
+        window.localStorage.setItem("tid", data.tid);
+        dataRender(teammates);
+    });
 
     $('a[role="newRisk"]').click(function (data) {
         if (user.level == 0) {
@@ -65,23 +142,14 @@ $(document).ready(function () {
 
     $('a[role="profile"]').click(function () {
         alert('waiting for updating');
-    })
-
-    $('#wizard').smartWizard();
-    $('.buttonNext').addClass('btn btn-success');
-    $('.buttonPrevious').addClass('btn btn-primary');
-    $('.buttonFinish').addClass('btn btn-default');
-
-    $('input[type="checkbox"]').iCheck({
-        checkboxClass: 'icheckbox_flat-green'
     });
-
-
-    //$('#addNewEntry').click(addNewEntry);
 
 
     $('a[role="logout"]').click(function () {
         storage.clear();
-        window.location.href = './login';
+        $.post('./logout', {}, function (data) {
+            window.location.href = data.url;
+        });
+
     });
 })

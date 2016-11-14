@@ -29,19 +29,7 @@ public class TeamController {
 	@Autowired
 	TeamService teamService;
 	
-	/**
-	 * get all teammates by manager id
-	 * @param mid
-	 * @return
-	 */
-	@RequestMapping(value="/teammates/{mid}",method=RequestMethod.GET)
-	@ResponseBody
-	public Map<String,Object> getTeammatesByManagerId(@PathVariable("mid") String mid){
-		Map<String, Object> data = new HashMap<>();
-		List<UserDTO> list=teamService.getAllUserByManagrId(mid);
-		data.put("teammates",list);
-		return data;
-	}
+
 	
 	/**
 	 * get team by manager's uid
@@ -52,9 +40,10 @@ public class TeamController {
 	@ResponseBody
 	public Map<String,Object> getTeamByManagerId(@PathVariable("mid") String mid){
 		Map<String, Object> data = new HashMap<>();
-
 		List<UserDTO> userDTOList = teamService.getAllUserByManagrId(mid);
-		data.put("team_members", JSONArray.fromObject(userDTOList).toString());
+		TeamDTO team = teamService.getTeamByManagerId(mid);
+		data.put("teammates", JSONArray.fromObject(userDTOList).toString());
+		data.put("tid", team.getTid());
 		return data;
 	}
 	

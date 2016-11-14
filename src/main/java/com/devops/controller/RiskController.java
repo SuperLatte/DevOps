@@ -63,7 +63,7 @@ public class RiskController {
 		return response;
 		
 	}
-	
+
 	/**
 	 * 
 	 * @param risk
@@ -166,14 +166,9 @@ public class RiskController {
 			response.setMessage("Please Login");
 		}else{
 			List<RiskDTO> list=service.getRiskByUser(user.getUid());
-			if(list==null||!list.isEmpty()){
-				response.setSuccess(false);
-				response.setMessage("You are not assigned to any risk");
-			}else{
-				response.setSuccess(true);
-				response.setMessage(SUCCESS);
-				response.setData(list);
-			}
+			response.setSuccess(true);
+			response.setMessage(SUCCESS);
+			response.setData(list);
 		}
 
 		return response;
