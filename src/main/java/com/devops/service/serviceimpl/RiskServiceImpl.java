@@ -301,7 +301,7 @@ public class RiskServiceImpl implements RiskService {
 		try {
 			tracingList = riskDao.getTracingByRiskID(risk.getRid());
 		} catch (SQLException e) {
-			e.printStackTrace();
+			logger.severe(e.getMessage());
 		}
 
 		for (RiskTracing tracing : tracingList) {
