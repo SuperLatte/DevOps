@@ -1,0 +1,22 @@
+{
+  "summary": {
+    "title": "Demo",
+    "owner": "Qiyang",
+    "description": "demo"
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Qiyang"
+      }
+    ],
+    "diagrams": [
+      {
+        "title": "Demo",
+        "thumbnail": "./public/content/images/thumbnail.jpg",
+        "id": 0
+      }
+    ],
+    "reviewer": "Qiyang"
+  }
+}
